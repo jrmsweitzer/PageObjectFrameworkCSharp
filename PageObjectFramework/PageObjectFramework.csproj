@@ -97,6 +97,7 @@
     <Compile Include="Tests\Presentation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Documentation\XPathCheatSheet.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
