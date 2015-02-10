@@ -149,8 +149,7 @@ namespace PageObjectFramework.Tests
         {
             while (!DateTime.Now.ToString("h:mm:ss").Contains(time))
             {
-                // Do nothing.
-                // Wait until 5:20 to start the countdown
+                // Do nothing except wait.
             }
         }
 
