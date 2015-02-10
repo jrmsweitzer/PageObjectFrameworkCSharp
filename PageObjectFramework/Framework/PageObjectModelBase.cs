@@ -34,13 +34,9 @@ namespace PageObjectFramework.Framework
     
         // Shared Methods
 
-
-        /** Clear() - Clears an input box
-         * 
-         * @param by - the by selector for the given element
-         * 
-         * @return void
-         */
+        /// <summary>Clears an input box
+        /// <para> @param by - the by selector for the given element</para>
+        /// </summary>
         protected void Clear(By by)
         {
             if (logActions)
@@ -50,13 +46,10 @@ namespace PageObjectFramework.Framework
             Find(by).Clear();
         }
 
-        /** ClearAndSendKeys() - Inputs data into an input box
-         * 
-         * @param by - the by selector for the given element
-         * @param inputText - the text to input into the input box.
-         * 
-         * @return void
-         */
+        /// <summary>Clears then inputs data into an input box
+        /// <para> @param by - the by selector for the given element</para>
+        /// <para> @param inputText - the text to input into the input box.</para>
+        /// </summary>
         protected void ClearAndSendKeys(By by, string inputText)
         {
             Clear(by);
@@ -68,12 +61,9 @@ namespace PageObjectFramework.Framework
             Find(by).SendKeys(inputText);
         }
 
-        /** Click() - Click the element at the given selector.
-         * 
-         * @param by - the by selector for the given element
-         * 
-         * @return void
-         */
+        /// <summary>Click the element at the given selector.
+        /// <para> @param by - the by selector for the given element</para>
+        /// </summary>
         protected void Click(By by)
         {
             if (logActions)
@@ -85,61 +75,52 @@ namespace PageObjectFramework.Framework
             actions.MoveToElement(element).Click().Perform();
         }
 
-        /** Find() - Finds the element by the given selector
-         * 
-         * @param by - the by selector for the given element
-         * 
-         * @return IWebElement - The element that the given selector points to.
-         */
+        /// <summary>Finds the element by the given selector
+        /// <para> @param by - the by selector for the given element</para>
+        /// </summary>
         protected IWebElement Find(By by)
         {
             return Driver.FindElement(by);
         }
 
-        /** GetInnerHtml() - Gets everything inside the html tags for the 
-         *                  element at the given by selector.
-         *                  
-         * @param by - the by selector for the given element
-         * 
-         * @return string - the innerHTML of the webElement
-         */
+        /// <summary>Gets everything inside the html tags for the given selector
+        /// <para> @param by - the by selector for the given element</para>
+        /// </summary>
         protected string GetInnerHtml(By by)
         {
             return Find(by).GetAttribute("innerHTML");
         }
 
+        /// <summary>Gets the text from the given locator
+        /// <para> @param by - the by selector for the given element</para>
+        /// </summary>
         protected string GetText(By by)
         {
             return Find(by).Text;
         }
 
-        /** GetTitle() - Gets the title of the current page
-         * 
-         * @return string - The current page's title.
-         */
+        /// <summary>
+        /// Gets the title of the current page
+        /// </summary>
         protected string GetTitle()
         {
             return GetInnerHtml(Title);
         }
 
-        /** GetUrl() - Gets the URL of the current page
-         * 
-         * @return string - The current page's URL.
-         */
+        /// <summary>
+        /// Gets the URL of the current page
+        /// </summary>
         protected string GetUrl()
         {
             return Driver.Url;
         }
 
-        /** Goto() - Go to the given URL.
-         * 
-         * @param url - the full url of the page you want to visit
-         * @param expectedTitle - 
-         *      An optional title to add. If you supply a title, the test will
-         *      fail if the page you end up on doesn't match the given title.
-         * 
-         * @return void
-         */
+        /// <summary>Go to the given URL.
+        /// <para> @param url - the full url of the page you want to visit</para>
+        /// <para> @param expectedTitle - </para>
+        /// <para> An optional title to add. If you supply a title, the test will </para>
+        /// <para> fail if the page you end up on doesn't match the given title. </para>
+        /// </summary>
         protected void GoTo(string url, string expectedTitle = "optionalTitle")
         {
             if (logActions)
@@ -160,13 +141,10 @@ namespace PageObjectFramework.Framework
             }
         }
 
-        /** SendKeys() - Inputs data into an input box
-         * 
-         * @param by - the by selector for the given element
-         * @param inputText - the text to input into the input box.
-         * 
-         * @return void
-         */
+        /// <summary>Inputs data into an input box
+        /// <para> @param by - the by selector for the given element</para>
+        /// <para> @param inputText - the text to input into the input box.</para>
+        /// </summary>
         protected void SendKeys(By by, string inputText)
         {
             if (logActions)
@@ -177,11 +155,10 @@ namespace PageObjectFramework.Framework
             Find(by).SendKeys(inputText);
         }
 
-        /** SelectByText() - Selects an option from a select box based on text
-         * 
-         * @param by - the by selector for the given element
-         * @param optionText - the text to select by
-         */
+        /// <summary>Selects an option from a select box based on text
+        /// <para> @param by - the by selector for the given element </para>
+        /// <para> @param optionText - the text to select by </para>
+        /// </summary>
         protected void SelectByText(By by, string optionText)
         {
             if (logActions)
@@ -203,6 +180,9 @@ namespace PageObjectFramework.Framework
             }
         }
 
+        /// <summary> Submits form for the given locator.
+        /// <para> @param by - the by selector for the given element </para>
+        /// </summary>
         protected void Submit(By by)
         {
             Find(by).Submit();
