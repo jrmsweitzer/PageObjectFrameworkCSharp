@@ -57,7 +57,10 @@ namespace PageObjectFramework.Tests
 
             email
                 .SignInWithCredentials(@"catalystsolves\jsweitzer", "password")
-                .ComposeNewEmail("AllEmployees@catalystitservices.com", 
+                //.ComposeNewEmail("AllEmployees@catalystitservices.com",
+                //    "Selenium PageObject Framework SourceCode with C#",
+                //    "Message Goes Here...");                
+                .ComposeNewEmail("jsweitzer@catalystitservices.com", 
                     "Selenium PageObject Framework SourceCode with C#", 
                     "Message Goes Here...");
             Thread.Sleep(5000);

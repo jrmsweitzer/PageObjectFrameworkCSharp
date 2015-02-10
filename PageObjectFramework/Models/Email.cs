@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using PageObjectFramework.Framework;
 using System;
+using System.Threading;
 
 namespace PageObjectFramework.Models
 {
@@ -28,6 +29,7 @@ namespace PageObjectFramework.Models
         private static readonly By MessageInput = By.Id("txtBdy");
         private static readonly By MessageFrame = By.Id("ifBdy");
         private static readonly By MessageBody = By.XPath("//style[@id='owaTempEditStyle']/../../body");
+        private static readonly By SendButton = By.Id("send");
 
         public Email SignInWithCredentials(string username, string password)
         {
@@ -46,10 +48,17 @@ namespace PageObjectFramework.Models
             Handler.SwitchToHandle("Compose Email");
 
             SendKeys(ToInput, toEmail);
+            Thread.Sleep(1000);
             SendKeys(SubjectInput, subject);
+            Thread.Sleep(1000);
 
             Driver.SwitchTo().Frame(Find(MessageFrame));
             SendKeys(MessageBody, message);
+
+            Handler.SwitchToHandle("Compose Email");
+            Click(SendButton);
+
+            Handler.SwitchToHandle(WindowHandler.MainWindowHandle);
 
             return this;
         }
