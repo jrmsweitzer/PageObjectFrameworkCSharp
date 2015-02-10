@@ -10,6 +10,7 @@ namespace PageObjectFramework.Models
         private string _url = "http://the-internet.herokuapp.com/";
         private string _title = "The Internet";
 
+        // DON'T FORGET TO CHANGE THIS NAME!
         public Template(IWebDriver driver) : base(driver)
         {
             Driver = driver;

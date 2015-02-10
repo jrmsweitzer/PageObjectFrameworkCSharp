@@ -99,7 +99,7 @@
     <Compile Include="Tests\Presentation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Documentation\XPathCheatSheet.xlsx" />
+    <None Include="Resources\XPathCheatSheet.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -107,6 +107,7 @@
     <Content Include="Drivers\chromedriver.exe" />
     <Content Include="Drivers\IEDriverServer.exe" />
     <Content Include="Drivers\ReadMe.txt" />
+    <Content Include="Resources\IBelieveICanFly.wav" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

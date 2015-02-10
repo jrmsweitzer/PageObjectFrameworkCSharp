@@ -29,8 +29,8 @@ namespace PageObjectFramework.Framework
         }  
         
         // Shared XPaths
-        public static readonly By Body = By.XPath("//body");
-        public static readonly By Title = By.XPath("//title");
+        protected static readonly By Body = By.XPath("//body");
+        protected static readonly By Title = By.XPath("//title");
     
         // Shared Methods
 
@@ -41,7 +41,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return void
          */
-        public void Clear(By by)
+        protected void Clear(By by)
         {
             if (logActions)
             {
@@ -57,7 +57,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return void
          */
-        public void ClearAndSendKeys(By by, string inputText)
+        protected void ClearAndSendKeys(By by, string inputText)
         {
             Clear(by);
             if (logActions)
@@ -74,7 +74,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return void
          */
-        public void Click(By by)
+        protected void Click(By by)
         {
             if (logActions)
             {
@@ -91,7 +91,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return IWebElement - The element that the given selector points to.
          */
-        public IWebElement Find(By by)
+        protected IWebElement Find(By by)
         {
             return Driver.FindElement(by);
         }
@@ -103,12 +103,12 @@ namespace PageObjectFramework.Framework
          * 
          * @return string - the innerHTML of the webElement
          */
-        public string GetInnerHtml(By by)
+        protected string GetInnerHtml(By by)
         {
             return Find(by).GetAttribute("innerHTML");
         }
 
-        public string GetText(By by)
+        protected string GetText(By by)
         {
             return Find(by).Text;
         }
@@ -117,7 +117,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return string - The current page's title.
          */
-        public string GetTitle()
+        protected string GetTitle()
         {
             return GetInnerHtml(Title);
         }
@@ -126,7 +126,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return string - The current page's URL.
          */
-        public string GetUrl()
+        protected string GetUrl()
         {
             return Driver.Url;
         }
@@ -140,7 +140,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return void
          */
-        public void GoTo(string url, string expectedTitle = "optionalTitle")
+        protected void GoTo(string url, string expectedTitle = "optionalTitle")
         {
             if (logActions)
             {
@@ -167,7 +167,7 @@ namespace PageObjectFramework.Framework
          * 
          * @return void
          */
-        public void SendKeys(By by, string inputText)
+        protected void SendKeys(By by, string inputText)
         {
             if (logActions)
             {
@@ -182,7 +182,7 @@ namespace PageObjectFramework.Framework
          * @param by - the by selector for the given element
          * @param optionText - the text to select by
          */
-        public void SelectByText(By by, string optionText)
+        protected void SelectByText(By by, string optionText)
         {
             if (logActions)
             {
@@ -201,6 +201,11 @@ namespace PageObjectFramework.Framework
                     optionText, by);
                 throw new OpenQA.Selenium.ElementNotVisibleException(errMsg);
             }
+        }
+
+        protected void Submit(By by)
+        {
+            Find(by).Submit();
         }
     }
 }

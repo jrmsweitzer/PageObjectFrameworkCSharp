@@ -4,7 +4,9 @@ using PageObjectFramework.Models;
 using PageObjectFramework.Models.Heroku;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Speech.Synthesis;
 using System.Threading;
 
@@ -47,8 +49,9 @@ namespace PageObjectFramework.Tests
         public void PlayAudioFile()
         {
             var player = new SoundPlayer();
-            player.SoundLocation = ""; //location of .wav file
+            player.SoundLocation = @"../../Resources/IBelieveICanFly.wav"; //location of .wav file
             player.Play();
+            Thread.Sleep(180000);
         }
 
         [Test]
@@ -70,50 +73,53 @@ namespace PageObjectFramework.Tests
         [Test]
         public void TimeTest()
         {
-            var google = new Google(Driver);
+            var heroku = new HerokuMain(Driver);
 
             PauseUntilTime("5:20:00");
-            google.EnterSearchText("10 minutes until the presentation...");
+            var herokuLogin =
+                ((HerokuLogin)heroku
+                .ClickLink(HerokuMain.FormAuthentication))
+                .WriteInUsernameTextBox("10 minutes until the presentation...");
             PauseUntilTime("5:20:30");
-            google.EnterSearchText("Did you know that a quarter of all people make up 25% of the population?");
+            herokuLogin.WriteInUsernameTextBox("Did you know that a quarter of all people make up 25% of the population?");
             PauseUntilTime("5:21:00");
-            google.EnterSearchText("Nine minutes to go...");
+            herokuLogin.WriteInUsernameTextBox("Nine minutes to go...");
             PauseUntilTime("5:21:30");
-            google.EnterSearchText("Did you know the center of a donut is 100% fat-free?");
+            herokuLogin.WriteInUsernameTextBox("Did you know the center of a donut is 100% fat-free?");
             PauseUntilTime("5:22:00");
-            google.EnterSearchText("Just eight minutes until the sun explodes! Just kidding.");
+            herokuLogin.WriteInUsernameTextBox("Just eight minutes until the sun explodes! Just kidding.");
             PauseUntilTime("5:22:20");
-            google.EnterSearchText("Build a man a fire, and he'll be warm for a day...");
+            herokuLogin.WriteInUsernameTextBox("Build a man a fire, and he'll be warm for a day...");
             PauseUntilTime("5:22:40");
-            google.EnterSearchText("Light a man on fire, and he'll be warm for life.");
+            herokuLogin.WriteInUsernameTextBox("Light a man on fire, and he'll be warm for life.");
             PauseUntilTime("5:23:00");
-            google.EnterSearchText("Only seven minutes left! Can you feel the energy?");
+            herokuLogin.WriteInUsernameTextBox("Only seven minutes left! Can you feel the energy?");
             PauseUntilTime("5:23:20");
-            google.EnterSearchText("There are 10 types of people in the world...");
+            herokuLogin.WriteInUsernameTextBox("There are 10 types of people in the world...");
             PauseUntilTime("5:23:40");
-            google.EnterSearchText("Those who understand binary, and those who don't");
+            herokuLogin.WriteInUsernameTextBox("Those who understand binary, and those who don't");
             PauseUntilTime("5:24:00");
-            google.EnterSearchText("Six minutes...");
+            herokuLogin.WriteInUsernameTextBox("Six minutes...");
             PauseUntilTime("5:24:20");
-            google.EnterSearchText("If at first you don't succeed... ");
+            herokuLogin.WriteInUsernameTextBox("If at first you don't succeed... ");
             PauseUntilTime("5:24:40");
-            google.AppendSearchText("Call it Version 1.0");
+            herokuLogin.AppendToUsernameTextBox("Call it Version 1.0");
             PauseUntilTime("5:25:00");
-            google.EnterSearchText("Five minutes remaining!");
+            herokuLogin.WriteInUsernameTextBox("Five minutes remaining!");
             PauseUntilTime("5:25:30");
-            google.EnterSearchText("Keyboard not found. Press F1 to continue...");
+            herokuLogin.WriteInUsernameTextBox("Keyboard not found. Press F1 to continue...");
             PauseUntilTime("5:26:00");
-            google.EnterSearchText("Four minutes remaining! Go get yourself a drink.");
+            herokuLogin.WriteInUsernameTextBox("Four minutes remaining! Go get yourself a drink.");
             PauseUntilTime("5:26:30");
-            google.EnterSearchText("Three and a half minutes...");
+            herokuLogin.WriteInUsernameTextBox("Three and a half minutes...");
             PauseUntilTime("5:27:00");
-            google.EnterSearchText("Three minutes...");
+            herokuLogin.WriteInUsernameTextBox("Three minutes...");
             PauseUntilTime("5:27:30");
-            google.EnterSearchText("Two and a half...");
+            herokuLogin.WriteInUsernameTextBox("Two and a half...");
             PauseUntilTime("5:28:00");
-            google.EnterSearchText("Two minutes...");
+            herokuLogin.WriteInUsernameTextBox("Two minutes...");
             PauseUntilTime("5:28:30");
-            google.EnterSearchText("A minute and a half until showtime!");
+            herokuLogin.WriteInUsernameTextBox("A minute and a half until showtime!");
             PauseUntilTime("5:29:00");
 
             // POTENTIAL JOKES
@@ -132,7 +138,7 @@ namespace PageObjectFramework.Tests
                     // stall for a second
                     secondsRemaining = 60 - Int32.Parse(DateTime.Now.ToString("ss"));
                 }
-                google.EnterSearchText("Seconds remaining: " + secondsRemaining);
+                herokuLogin.WriteInUsernameTextBox("Seconds remaining: " + secondsRemaining);
                 currentSeconds = Int32.Parse(DateTime.Now.ToString("ss"));
             }
 
@@ -220,7 +226,7 @@ namespace PageObjectFramework.Tests
                 .SearchYouTube("dQw4w9WgXcQ")
                 .ClickVideoAtIndex(1);
 
-            Thread.Sleep(52000);
+            Thread.Sleep(5000);
 
             var cookieclicker = new CookieClicker(Driver);
             cookieclicker
