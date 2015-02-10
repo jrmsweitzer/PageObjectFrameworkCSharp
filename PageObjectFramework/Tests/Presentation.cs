@@ -262,7 +262,7 @@ namespace PageObjectFramework.Tests
             var yammer = new Yammer(Driver);
             yammer
                 .LogInWithCredentials("jsweitzer@catalystitservices.com", "password")
-                .PostNewMessage("Hello, Catalyst, from Selenium! I hope you enjoyed my presentation!");
+                .PostNewMessage("Hello, Catalyst, from Selenium! I hope you enjoyed my presentation! You can find the source code here: https://github.com/jrmsweitzer/PageObjectFramework");
             Thread.Sleep(2500);
 
             herokuLogin
