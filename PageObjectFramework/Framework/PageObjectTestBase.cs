@@ -69,6 +69,7 @@ namespace PageObjectFramework.Framework
             LOGGER.GetLogger(LOGNAME).LogFinishTestSuite();
             _suiteStopwatch.Stop();
             LOGGER.GetLogger(LOGNAME).LogTime("Total Time", _suiteStopwatch.Elapsed);
+            KillChromeDrivers();
         }
 
         private void TakeScreenshot(string passOrFail)
@@ -89,6 +90,14 @@ namespace PageObjectFramework.Framework
             if (!Directory.Exists(_screenshotDirectory))
             {
                 Directory.CreateDirectory(_screenshotDirectory);
+            }
+        }
+
+        private void KillChromeDrivers()
+        {
+            foreach (var p in Process.GetProcessesByName("chromedriver"))
+            {
+                p.Kill();
             }
         }
     }

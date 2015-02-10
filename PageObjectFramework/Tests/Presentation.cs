@@ -3,6 +3,7 @@ using PageObjectFramework.Framework;
 using PageObjectFramework.Models;
 using PageObjectFramework.Models.Heroku;
 using System;
+using System.Diagnostics;
 using System.Media;
 using System.Speech.Synthesis;
 using System.Threading;
@@ -131,7 +132,7 @@ namespace PageObjectFramework.Tests
                     // stall for a second
                     secondsRemaining = 60 - Int32.Parse(DateTime.Now.ToString("ss"));
                 }
-                google.EnterSearchText(secondsRemaining +  " seconds remaining.");
+                google.EnterSearchText("Seconds remaining: " + secondsRemaining);
                 currentSeconds = Int32.Parse(DateTime.Now.ToString("ss"));
             }
 
