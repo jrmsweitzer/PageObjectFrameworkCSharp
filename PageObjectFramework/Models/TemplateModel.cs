@@ -3,7 +3,7 @@ using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models
 {
-    public class Template : PageObjectModelBase
+    public class TemplateModelPO : PageObjectModelBase
     {
         private IWebDriver Driver { get; set; }
 
@@ -11,7 +11,7 @@ namespace PageObjectFramework.Models
         private string _title = "The Internet";
 
         // DON'T FORGET TO CHANGE THIS NAME!
-        public Template(IWebDriver driver) : base(driver)
+        public TemplateModelPO(IWebDriver driver) : base(driver)
         {
             Driver = driver;
             GoTo(_url, _title);

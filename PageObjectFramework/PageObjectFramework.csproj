@@ -91,7 +91,7 @@
     <Compile Include="Models\Heroku\IHerokuApp.cs" />
     <Compile Include="Models\Heroku\HerokuCheckboxes.cs" />
     <Compile Include="Models\Heroku\HerokuMain.cs" />
-    <Compile Include="Models\Template.cs" />
+    <Compile Include="Models\TemplateModel.cs" />
     <Compile Include="Models\Weather.cs" />
     <Compile Include="Models\Yammer.cs" />
     <Compile Include="Models\YouTube.cs" />
