@@ -51,6 +51,19 @@ namespace PageObjectFramework.Tests
         }
 
         [Test]
+        public void EmailLoginTest()
+        {
+            var email = new Email(Driver);
+
+            email
+                .SignInWithCredentials(@"catalystsolves\jsweitzer", "password")
+                .ComposeNewEmail("AllEmployees@catalystitservices.com", 
+                    "Selenium PageObject Framework SourceCode with C#", 
+                    "Message Goes Here...");
+            Thread.Sleep(5000);
+        }
+
+        [Test]
         public void TimeTest()
         {
             var google = new Google(Driver);
@@ -228,6 +241,14 @@ namespace PageObjectFramework.Tests
             var textToSpeech = new SpeechSynthesizer();
             textToSpeech.SelectVoiceByHints(VoiceGender.Neutral);
             textToSpeech.Speak(weatherForTomorrow);
+
+            var email = new Email(Driver);
+            email
+                .SignInWithCredentials(@"catalystsolves\jsweitzer", "password")
+                .ComposeNewEmail("AllEmployees@catalystitservices.com",
+                    "Selenium PageObject Framework SourceCode with C#",
+                    "https://github.com/jrmsweitzer/PageObjectFramework");
+            Thread.Sleep(5000);
 
             var yammer = new Yammer(Driver);
             yammer

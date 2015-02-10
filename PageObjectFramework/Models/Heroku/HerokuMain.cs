@@ -31,8 +31,6 @@ namespace PageObjectFramework.Models
                     return new HerokuCheckboxes(Driver);
                 case Dropdown:
                     return new HerokuDropdown(Driver);
-                case WysiwygEditor:
-                    return new HerokuWysiwygEditor(Driver);
                 case FormAuthentication:
                     return new HerokuLogin(Driver);
                 default:

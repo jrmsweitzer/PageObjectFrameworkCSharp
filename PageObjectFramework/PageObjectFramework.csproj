@@ -82,7 +82,9 @@
     <Compile Include="Framework\SeleniumDriver.cs" />
     <Compile Include="Framework\PageObjectTestBase.cs" />
     <Compile Include="Framework\SeleniumLogger.cs" />
+    <Compile Include="Framework\WindowHandler.cs" />
     <Compile Include="Models\CookieClicker.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\Google.cs" />
     <Compile Include="Models\Heroku\HerokuDropdown.cs" />
     <Compile Include="Models\Heroku\HerokuLogin.cs" />
