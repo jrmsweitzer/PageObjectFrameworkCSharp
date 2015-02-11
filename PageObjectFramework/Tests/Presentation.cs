@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using PageObjectFramework.Framework;
 using PageObjectFramework.Models;
 using PageObjectFramework.Models.Heroku;
+using PageObjectFramework.Resources;
 using System;
 using System.Diagnostics;
 using System.IO;

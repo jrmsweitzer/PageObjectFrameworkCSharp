@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace PageObjectFramework.Framework
         private string _logFilePath;
 
         // The Directory of the log files.
-        private string _logDir = @"C:\Selenium\Logs\";
+        private string _logDir = ConfigurationManager.AppSettings["logDirectory"];
 
         /** SeleniumLogger GetLogger(string descriptiveLogName)
          * 
@@ -116,6 +117,11 @@ namespace PageObjectFramework.Framework
         #endregion
 
         #region Public Methods
+        public void LogDashedLine()
+        {
+            Log(DashedLine, Message);
+        }
+
         public void LogError(string errorMessage)
         {
             Log(errorMessage, Error);
@@ -128,9 +134,9 @@ namespace PageObjectFramework.Framework
 
         public void LogFinishTestSuite()
         {
-            Log(DashedLine, Message);
+            LogDashedLine();
             Log("Finished Test Suite!", Finish);
-            Log(DashedLine, Message);
+            LogDashedLine();
         }
 
         public void LogInfo(string infoMessage)
@@ -150,14 +156,14 @@ namespace PageObjectFramework.Framework
 
         public void LogStartTest(string testName)
         {
-            Log(DashedLine, Message);
+            LogDashedLine();
             Log(testName + "() started!", Start);
-            Log(DashedLine, Message);
+            LogDashedLine();
         }
 
         public void LogStartTestSuite()
         {
-            Log(DashedLine, Message);
+            LogDashedLine();
             Log("Starting Test Suite!", Start);
         }
 

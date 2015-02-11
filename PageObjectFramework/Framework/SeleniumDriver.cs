@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using System;
+using System.Configuration;
 
 namespace PageObjectFramework.Framework
 {
@@ -66,7 +67,7 @@ namespace PageObjectFramework.Framework
 
         private static void SetTimeout()
         {
-            string strtimeout = "60";
+            string strtimeout = ConfigurationManager.AppSettings["defaultTimeout"];
             int timeout;
             if (Int32.TryParse(strtimeout, out timeout))
             {

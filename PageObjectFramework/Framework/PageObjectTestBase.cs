@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using LOGGER = PageObjectFramework.Framework.SeleniumLogger;
@@ -9,7 +10,7 @@ namespace PageObjectFramework.Framework
 {
     public class PageObjectTestBase : SeleniumDriver
     {
-        private string _screenshotDirectory = @"C:\Selenium\Results\Screenshots\";
+        private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];
 
         private Stopwatch _suiteStopwatch;
         private Stopwatch _testStopwatch;
@@ -69,6 +70,9 @@ namespace PageObjectFramework.Framework
             LOGGER.GetLogger(LOGNAME).LogFinishTestSuite();
             _suiteStopwatch.Stop();
             LOGGER.GetLogger(LOGNAME).LogTime("Total Time", _suiteStopwatch.Elapsed);
+            LOGGER.GetLogger(LOGNAME).LogDashedLine();
+            LOGGER.GetLogger(LOGNAME).LogDashedLine();
+            LOGGER.GetLogger(LOGNAME).LogDashedLine();
             KillChromeDrivers();
         }
 

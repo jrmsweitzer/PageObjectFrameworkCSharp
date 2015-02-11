@@ -19,5 +19,8 @@ namespace PageObjectFramework.Models
             Driver = driver;
             GoTo(_url, _title);
         }
+
+        // Example Locator: 
+        // private static readonly By Title = By.XPath("//title");
     }
 }

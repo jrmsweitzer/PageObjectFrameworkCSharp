@@ -3,6 +3,7 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using PageObjectFramework.Models;
 using System;
+using System.Configuration;
 using System.Threading;
 
 namespace PageObjectFramework.Framework
@@ -13,7 +14,10 @@ namespace PageObjectFramework.Framework
         // called from any of our Page Objects.
 
         private IWebDriver Driver { get; set; }
-        private bool logActions = true;
+        private bool logActions = 
+            ConfigurationManager.AppSettings["logAllActions"] == "true" ? 
+            true : 
+            false;
         private SeleniumLogger Logger;
 
         /**
