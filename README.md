@@ -16,7 +16,7 @@ this project.
 
 
 If you have VS2012 instead, you can go to the URL listed above, and click 
-"Clone to desktop". From there, you can open it with your IDE.
+"Clone in desktop". From there, you can open it with your IDE.
 
 
 To build a Page Object, just start with the TemplateModel found in the Models 
