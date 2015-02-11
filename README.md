@@ -20,7 +20,8 @@ If you have VS2012 instead, you can go to the URL listed above, and click
 
 
 To build a Page Object, just start with the TemplateModel found in the Models 
-folder, and edit it to your specific page. It's really simple once you get going.
+folder, and edit it to your specific page. It's really simple once you get 
+started.
 
 
 You can find an XPath Cheat Sheet in the Resources folder, which can help you 
@@ -65,6 +66,22 @@ I hope you enjoy using this Framework! If you have any
 questions/comments/concerns, feel free to email me at
 jsweitzer@catalystitservices.com! 
 
+
 Thanks,
 ~Jeremy Sweitzer
 Developer II - Catalyst IT Services.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+<shameless plug>
+	<follow_me>
+		<Yammer>
+			https://www.yammer.com/catalystitservices.com/users/jsweitzer
+		</Yammer>
+		<LinkedIn>
+			https://www.linkedin.com/pub/jeremy-sweitzer/69/6a5/3b9
+		</LinkedIn>
+	</follow_me>
+</shameless plug>
