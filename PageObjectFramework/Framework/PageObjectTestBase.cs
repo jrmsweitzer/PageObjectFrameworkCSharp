@@ -58,6 +58,7 @@ namespace PageObjectFramework.Framework
             }
             _testStopwatch.Stop();
             LOGGER.GetLogger(LOGNAME).LogTime("Elapsed Time", _testStopwatch.Elapsed);
+            Driver.Manage().Cookies.DeleteAllCookies();
             Driver.Quit();
             Driver = null;
         }

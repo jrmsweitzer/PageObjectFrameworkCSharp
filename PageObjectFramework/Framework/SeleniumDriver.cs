@@ -10,6 +10,7 @@ namespace PageObjectFramework.Framework
     public class SeleniumDriver
     {
         private static IWebDriver _driver;
+        private static string _driverDirectory = @"../../Drivers";
         
         public static IWebDriver Driver
         {
@@ -23,7 +24,7 @@ namespace PageObjectFramework.Framework
                         switch (driverConfig)
                         {
                             case "Chrome":
-                                _driver = new ChromeDriver(@"../../Drivers");
+                                _driver = new ChromeDriver(_driverDirectory);
                                 ConfigureDriver();
                                 break;
                             case "Firefox":
@@ -31,13 +32,13 @@ namespace PageObjectFramework.Framework
                                 ConfigureDriver();
                                 break;
                             case "IE":
-                                _driver = new InternetExplorerDriver(@"../../Drivers");
+                                _driver = new InternetExplorerDriver(_driverDirectory);
                                 ConfigureDriver();
                                 break;
                             default:
                                 Console.WriteLine("App.config key error.");
-                                Console.WriteLine("Defaulting to Firefox");
-                                _driver = new ChromeDriver();
+                                Console.WriteLine("Defaulting to Chrome");
+                                _driver = new ChromeDriver(_driverDirectory);
                                 ConfigureDriver();
                                 break;
                         }
@@ -46,7 +47,7 @@ namespace PageObjectFramework.Framework
                     {
                         Console.WriteLine("* * * * DEFAULTMODE * * * *");
                         Console.WriteLine("App.config key not present.");
-                        _driver = new ChromeDriver();
+                        _driver = new ChromeDriver(_driverDirectory);
                         ConfigureDriver();
                     }
                 }
