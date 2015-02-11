@@ -20,9 +20,13 @@ namespace PageObjectFramework.Framework
      * That would click a link containing text "Cancel".
      */
     #endregion
+    /// <summary>
+    /// A custom class combining a By locator with a string formatter.
+    /// <para> @author: Jeremy Sweitzer</para>
+    /// </summary>
     public class ByFormatter : By
     {
-        // CONSTRUCTOR
+
         private ByFormatter(string locator, string formatter)
         {
             _locator = locator;
@@ -33,14 +37,14 @@ namespace PageObjectFramework.Framework
         private string _formatter;
 
         #region Constants
-        private const string FORMATTER_CLASSNAME = "class";
-        private const string FORMATTER_CSSSELECTOR = "css";
-        private const string FORMATTER_ID = "id";
-        private const string FORMATTER_LINKTEXT = "link";
-        private const string FORMATTER_PARTIALLINKTEXT = "partiallink";
-        private const string FORMATTER_NAME = "name";
-        private const string FORMATTER_TAGNAME = "tag";
-        private const string FORMATTER_XPATH = "xpath";
+        private const string FORMATTER_CLASSNAME = "ClassName";
+        private const string FORMATTER_CSSSELECTOR = "CssSelector";
+        private const string FORMATTER_ID = "Id";
+        private const string FORMATTER_LINKTEXT = "LinkText";
+        private const string FORMATTER_PARTIALLINKTEXT = "PartialLinkText";
+        private const string FORMATTER_NAME = "Name";
+        private const string FORMATTER_TAGNAME = "TagName";
+        private const string FORMATTER_XPATH = "XPath";
         #endregion
 
         public static new ByFormatter ClassName(string locator)
@@ -74,6 +78,11 @@ namespace PageObjectFramework.Framework
         public static new ByFormatter XPath(string locator)
         {
             return new ByFormatter(locator, ByFormatter.FORMATTER_XPATH);
+        }
+        public override string ToString()
+        {
+            return string.Format("ByFormatter.{0}: {1}",
+                _formatter, _locator);
         }
 
         public By Format(params object[] vars)
