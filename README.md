@@ -37,6 +37,9 @@ The Logger that's included will log actions (all the selenium button clicks and
 such), as well as test runs and their results (pass/fail). The default location
 is C:/Selenium/Logs, but can be changed in App.config, with the logDirectory
 value. You can also turn off the action logging with the logAllActions value.
+The test suite also takes screenshots of the browser when the test finishes, so
+you can see where it passed/failed. The default location of that is 
+C:\Selenium\Results\Screenshots\, but again, can be edited in App.Config.
 
 
 The WindowHandler is also a custom creation of mine. Its purpose is to help you
@@ -46,3 +49,22 @@ the Email Model, in the method
 ComposeNewEmail(string to, string subject, string message).
 
 
+Every Selenium Test should implement PageObjectTestBase, to gain access to the
+logger and screenshots, without any extra coding on your part. Similarly, every
+PageObject Model you create should implement PageObjectModelBase. By doing
+that, you'll gain access to all of the common methods such as Click(by) and
+SendKeys(by, value).
+
+
+The last thing to touch up on is which browser the tests run in. By default,
+the tests will run in Chrome. However, that can be changed in the App.config
+file.
+
+
+I hope you enjoy using this Framework! If you have any 
+questions/comments/concerns, feel free to email me at
+jsweitzer@catalystitservices.com! 
+
+Thanks,
+~Jeremy Sweitzer
+Developer II - Catalyst IT Services.

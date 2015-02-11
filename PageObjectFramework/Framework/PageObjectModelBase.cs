@@ -52,17 +52,17 @@ namespace PageObjectFramework.Framework
 
         /// <summary>Clears then inputs data into an input box
         /// <para> @param by - the by selector for the given element</para>
-        /// <para> @param inputText - the text to input into the input box.</para>
+        /// <para> @param value - the text to input into the input box.</para>
         /// </summary>
-        protected void ClearAndSendKeys(By by, string inputText)
+        protected void ClearAndSendKeys(By by, string value)
         {
             Clear(by);
             if (logActions)
             {
-                Logger.LogMessage(string.Format("SndKy: {0}", inputText));
+                Logger.LogMessage(string.Format("SndKy: {0}", value));
                 Logger.LogMessage(string.Format("   to: {0}", by));
             }
-            Find(by).SendKeys(inputText);
+            Find(by).SendKeys(value);
         }
 
         /// <summary>Click the element at the given selector.
@@ -147,16 +147,16 @@ namespace PageObjectFramework.Framework
 
         /// <summary>Inputs data into an input box
         /// <para> @param by - the by selector for the given element</para>
-        /// <para> @param inputText - the text to input into the input box.</para>
+        /// <para> @param value - the text to input into the input box.</para>
         /// </summary>
-        protected void SendKeys(By by, string inputText)
+        protected void SendKeys(By by, string value)
         {
             if (logActions)
             {
-                Logger.LogMessage(string.Format("SndKy: {0}", inputText));
+                Logger.LogMessage(string.Format("SndKy: {0}", value));
                 Logger.LogMessage(string.Format("   to: {0}", by));
             }
-            Find(by).SendKeys(inputText);
+            Find(by).SendKeys(value);
         }
 
         /// <summary>Selects an option from a select box based on text

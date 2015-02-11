@@ -17,7 +17,7 @@ namespace PageObjectFramework.Framework
             {
                 if (_driver == null)
                 {
-                    string driverConfig = "Chrome";
+                    string driverConfig = ConfigurationManager.AppSettings["browser"];
                     if (!string.IsNullOrEmpty(driverConfig))
                     {
                         switch (driverConfig)
