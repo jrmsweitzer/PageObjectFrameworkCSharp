@@ -24,6 +24,11 @@ namespace PageObjectFramework.Models
         private static readonly By Status = By.XPath("(//textarea[contains(@id,'yamjs')])[1]");
         private static readonly By PostButton = By.XPath("(//button[@data-qaid='post_button'])[1]");
 
+        /// <summary>
+        /// Signs in to the Yammer account with the given credentials
+        /// <para> @param email - the email to sign in with</para>
+        /// <para> @param password - the password to sign in with</para>
+        /// </summary>
         public Yammer LogInWithCredentials(string email, string password)
         {
             Click(LogInLink);
@@ -34,18 +39,15 @@ namespace PageObjectFramework.Models
             return this;
         }
         
+        /// <summary>
+        /// Posts the given message to Yammer.
+        /// <para> @param message - the message to post to Yammer.</para>
+        /// </summary>
         public Yammer PostNewMessage(string message)
         {
             Click(WhatAreYouWorkingOn);
             ClearAndSendKeys(Status, message);
-            //Click(PostButton);
-            return this;
-        }
-
-        public Yammer FillInMessageBoxWith(string message)
-        {
-            Click(WhatAreYouWorkingOn);
-            ClearAndSendKeys(Status, message);
+            Click(PostButton);
             return this;
         }
     }

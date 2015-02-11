@@ -18,9 +18,13 @@ namespace PageObjectFramework.Models
 
         public const string Checkboxes = "Checkboxes";
         public const string Dropdown = "Dropdown";
-        public const string WysiwygEditor = "WYSIWYG Editor";
         public const string FormAuthentication = "Form Authentication";
 
+        /// <summary>
+        /// Clicks link defined by the linkText
+        /// <para> @param linkText - The text of the link to click.</para>
+        /// <para> @returns a heroku page object, depending on the link clicked.</para>
+        /// </summary>
         public IHerokuApp ClickLink(string linkText)
         {
             Click(By.LinkText(linkText));
@@ -38,6 +42,10 @@ namespace PageObjectFramework.Models
             }
         }
 
+        /// <summary>
+        /// Takes URL to the Heroku Main Page and brings control of the driver with it.
+        /// </summary>
+        /// <returns></returns>
         public HerokuMain ReturnToHeroku()
         {
             GoTo(_url, "The Internet");

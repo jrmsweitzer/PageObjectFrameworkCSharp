@@ -15,7 +15,10 @@ namespace PageObjectFramework.Models.Heroku
         public static readonly By UncheckedCheckBox = By.XPath("//form/input[1]");
         public static readonly By CheckedCheckBox = By.XPath("//form/input[2]");
 
-
+        /// <summary>
+        /// Toggles the Unchecked checkbox
+        /// <para>@param numTimes - the number of times to toggle it.</para>
+        /// </summary>
         public HerokuCheckboxes ToggleUncheckedBox(int numTimes)
         {
             for (int i = 0; i < numTimes; i++)
@@ -26,6 +29,10 @@ namespace PageObjectFramework.Models.Heroku
             return this;
         }
 
+        /// <summary>
+        /// Toggles the Checked checkbox
+        /// <para>@param numTimes - the number of times to toggle it.</para>
+        /// </summary>
         public HerokuCheckboxes ToggleCheckedBox(int numTimes)
         {
             for (int i = 0; i < numTimes; i++)

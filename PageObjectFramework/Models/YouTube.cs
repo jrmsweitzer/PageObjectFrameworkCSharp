@@ -9,6 +9,9 @@ namespace PageObjectFramework.Models
         private IWebDriver Driver { get; set; }
         private static readonly string _url = "http://www.youtube.com";
 
+        /// <summary>
+        /// The YouTube home page.
+        /// </summary>
         public YouTube(IWebDriver driver)
             : base(driver)
         {
@@ -20,6 +23,10 @@ namespace PageObjectFramework.Models
         private static readonly By SearchButton = By.Id("search-btn");
         private static readonly ByFormatter VideoByIndex = ByFormatter.XPath("(//h3[@class='yt-lockup-title'])[{0}]");
 
+        /// <summary>
+        /// Searches YouTube for the given query
+        /// <para> @param text - the text to search for on YouTube.</para>
+        /// </summary>
         public YouTube SearchYouTube(string text)
         {
             ClearAndSendKeys(SearchDialog, text);
@@ -28,19 +35,13 @@ namespace PageObjectFramework.Models
             return this;
         }
 
-        public YouTube ClickVideoAtIndex(int index)
+        /// <summary>
+        /// Clicks video that is nth video down from the search results
+        /// <para> @param n - the index of the video to click</para>
+        /// </summary>
+        public YouTube ClickVideoAtIndex(int n)
         {
-            Click(VideoByIndex.Format(index));
-            return this;
-        }
-
-        public YouTube FullScreen()
-        {
-            for (int x = 0; x < 10; x++)
-            {
-                SendKeys(Body, Keys.Tab);
-            }
-            SendKeys(Body, Keys.Enter);
+            Click(VideoByIndex.Format(n));
             return this;
         }
     }

@@ -10,7 +10,10 @@ namespace PageObjectFramework.Models
         private string _url = "http://the-internet.herokuapp.com/";
         private string _title = "The Internet";
 
-        // DON'T FORGET TO CHANGE THIS NAME!
+        /// <summary>
+        /// The Template PageObject Model.
+        /// Edit this to jumpstart your template!
+        /// </summary>
         public TemplateModelPO(IWebDriver driver) : base(driver)
         {
             Driver = driver;

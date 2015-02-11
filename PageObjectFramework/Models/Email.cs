@@ -12,6 +12,9 @@ namespace PageObjectFramework.Models
         private string _url = "https://mail.catalystitservices.com/";
         private WindowHandler Handler { get; set; }
 
+        /// <summary>
+        /// The Class for the Outlook WebApp
+        /// </summary>
         public Email(IWebDriver driver) : base(driver)
         {
             Driver = driver;
@@ -31,7 +34,12 @@ namespace PageObjectFramework.Models
         private static readonly By MessageBody = By.XPath("//style[@id='owaTempEditStyle']/../../body");
         private static readonly By SendButton = By.Id("send");
 
-        public Email SignInWithCredentials(string username, string password)
+        /// <summary>
+        /// Signs in to the email account with the given credentials
+        /// <para> @param username - the username to sign in with</para>
+        /// <para> @param password - the password to sign in with</para>
+        /// </summary>
+        public Email LogInWithCredentials(string username, string password)
         {
             SendKeys(UsernameInput, username);
             SendKeys(PasswordInput, password);
@@ -40,14 +48,20 @@ namespace PageObjectFramework.Models
             return this;
         }
 
-        public Email ComposeNewEmail(string toEmail, string subject, string message)
+        /// <summary>
+        /// Send a new email
+        /// <para> @param to - the email address to send it to</para>
+        /// <para> @param subject - the subject of the email</para>
+        /// <para> @param message - the body of the email</para>
+        /// </summary>
+        public Email ComposeNewEmail(string to, string subject, string message)
         {
             Click(NewEmailButton);
 
             Handler.AddNewWindowHandle("Compose Email");
             Handler.SwitchToHandle("Compose Email");
 
-            SendKeys(ToInput, toEmail);
+            SendKeys(ToInput, to);
             Thread.Sleep(1000);
             SendKeys(SubjectInput, subject);
             Thread.Sleep(1000);

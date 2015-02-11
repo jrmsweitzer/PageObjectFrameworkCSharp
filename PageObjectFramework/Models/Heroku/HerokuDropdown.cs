@@ -18,6 +18,10 @@ namespace PageObjectFramework.Models.Heroku
         public static readonly string Option1 = "Option 1";
         public static readonly string Option2 = "Option 2";
 
+        /// <summary>
+        /// Selects Option based on the given text
+        /// <para> @param option - the option to select</para>
+        /// </summary>
         public HerokuDropdown SelectOption(string option)
         {
             SelectByText(Dropdown, option);

@@ -19,6 +19,10 @@ namespace PageObjectFramework.Models
         private static readonly By GoButton = By.Id("btnSearch");
         private static readonly By TomorrowText = By.XPath("//span[.='Thursday']/..");
 
+        /// <summary>
+        /// inputs your location into the location box
+        /// <para> @param location - either your location (Baltimore, MD), or a zip code.</para>
+        /// </summary>
         public Weather EnterLocation(string location)
         {
             SendKeys(LocationInput, location);
@@ -26,6 +30,10 @@ namespace PageObjectFramework.Models
             return this;
         }
 
+        /// <summary>
+        /// Gets the text for tomorrow's weather.
+        /// </summary>
+        /// <returns></returns>
         public string GetTomorrowsWeather()
         {
             return GetText(TomorrowText);
