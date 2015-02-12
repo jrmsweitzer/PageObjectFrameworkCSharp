@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace PageObjectFramework.Models
 {
-    public class Yammer : PageObjectModelBase
+    public class Yammer : PageObject
     {
         public Yammer(IWebDriver driver)
             : base(driver)

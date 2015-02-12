@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace PageObjectFramework.Models
 {
-    public class HerokuMain : PageObjectModelBase, IHerokuApp
+    public class HerokuMain : PageObject, IHerokuApp
     {
         public HerokuMain(IWebDriver driver) : base(driver)
         {

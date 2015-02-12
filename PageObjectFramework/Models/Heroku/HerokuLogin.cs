@@ -3,7 +3,7 @@ using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models.Heroku
 {
-    public class HerokuLogin : PageObjectModelBase, IHerokuApp
+    public class HerokuLogin : PageObject, IHerokuApp
     {
         public HerokuLogin(IWebDriver driver) : base(driver)
         {

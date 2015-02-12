@@ -3,7 +3,7 @@ using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models
 {
-    public class CookieClicker : PageObjectModelBase
+    public class CookieClicker : PageObject
     {
         public CookieClicker(IWebDriver driver) : base(driver)
         {

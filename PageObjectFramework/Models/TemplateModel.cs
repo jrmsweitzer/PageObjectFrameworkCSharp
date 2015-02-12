@@ -3,7 +3,7 @@ using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models
 {
-    public class TemplateModel : PageObjectModelBase
+    public class TemplateModel : PageObject
     {
         /// <summary>
         /// The Template PageObject Model.

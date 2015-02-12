@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace PageObjectFramework.Models
 {
-    public class YouTube : PageObjectModelBase
+    public class YouTube : PageObject
     {
         /// <summary>
         /// The YouTube home page.

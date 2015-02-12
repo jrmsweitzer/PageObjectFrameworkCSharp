@@ -79,9 +79,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Framework\ByFormatter.cs" />
-    <Compile Include="Framework\PageObjectModelBase.cs" />
+    <Compile Include="Framework\PageObject.cs" />
     <Compile Include="Framework\SeleniumDriver.cs" />
-    <Compile Include="Framework\PageObjectTestBase.cs" />
+    <Compile Include="Framework\PageObjectTest.cs" />
     <Compile Include="Framework\SeleniumLogger.cs" />
     <Compile Include="Framework\WindowHandler.cs" />
     <Compile Include="Models\CookieClicker.cs" />

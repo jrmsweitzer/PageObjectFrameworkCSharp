@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace PageObjectFramework.Models
 {
-    public class Email : PageObjectModelBase
+    public class Email : PageObject
     {
         /// <summary>
         /// The Class for the Outlook WebApp

@@ -7,7 +7,7 @@ using LOGGER = PageObjectFramework.Framework.SeleniumLogger;
 
 namespace PageObjectFramework.Framework
 {
-    public class PageObjectTestBase : SeleniumDriver
+    public class PageObjectTest : SeleniumDriver
     {
         private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];
 

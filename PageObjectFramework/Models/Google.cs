@@ -3,7 +3,7 @@ using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models
 {
-    public class Google : PageObjectModelBase
+    public class Google : PageObject
     {
         public Google(IWebDriver driver)
             : base(driver)

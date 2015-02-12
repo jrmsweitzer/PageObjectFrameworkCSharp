@@ -21,7 +21,7 @@ namespace PageObjectFramework.Framework
     /// <para>    GoTo(_url, _title);</para>
     /// <para>}</para>
     /// </summary>
-    public class PageObjectModelBase
+    public class PageObject
     {
         // Driver and Page-specific stuff
         protected IWebDriver Driver { get; set; }
@@ -43,7 +43,7 @@ namespace PageObjectFramework.Framework
         /**
          *  Generic constructor
          */
-        public PageObjectModelBase(IWebDriver driver)
+        public PageObject(IWebDriver driver)
         {
             Driver = driver;
             WindowHandler = new WindowHandler(Driver);

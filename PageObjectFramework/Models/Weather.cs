@@ -4,7 +4,7 @@ using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models
 {
-    public class Weather : PageObjectModelBase
+    public class Weather : PageObject
     {
         public Weather(IWebDriver driver) : base(driver)
         {

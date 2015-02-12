@@ -8,7 +8,7 @@ using System.Threading;
 namespace PageObjectFramework.Tests
 {
     [TestFixture]
-    public class Presentation : PageObjectTestBase
+    public class Presentation : PageObjectTest
     {
         private const string NOTSET = "NOT_SET";
 

@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace PageObjectFramework.Models.Heroku
 {
-    public class HerokuCheckboxes : PageObjectModelBase, IHerokuApp
+    public class HerokuCheckboxes : PageObject, IHerokuApp
     {
 
         public HerokuCheckboxes(IWebDriver driver) : base(driver)

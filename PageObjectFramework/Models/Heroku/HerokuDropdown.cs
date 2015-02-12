@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace PageObjectFramework.Models.Heroku
 {
-    public class HerokuDropdown : PageObjectModelBase, IHerokuApp
+    public class HerokuDropdown : PageObject, IHerokuApp
     {
 
         public HerokuDropdown(IWebDriver driver) : base(driver)
