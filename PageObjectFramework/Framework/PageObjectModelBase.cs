@@ -2,12 +2,10 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
-using PageObjectFramework.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Threading;
 
 namespace PageObjectFramework.Framework
 {
@@ -17,8 +15,10 @@ namespace PageObjectFramework.Framework
     /// <para>Any class implementing PageObjectModelBase should have a constructor like so:</para>
     /// <para>public PageObjectNameGoesHere(IWebDriver driver) : base(driver)</para>
     /// <para>{</para>
-    /// <para>    // Optional GoTo();</para>
-    /// <para>    GoTo(url);</para>
+    /// <para>    // Everything in here is optional</para>
+    /// <para>    _url = "https://www.google.com";</para>
+    /// <para>    _title = "Google";</para>
+    /// <para>    GoTo(_url, _title);</para>
     /// <para>}</para>
     /// </summary>
     public class PageObjectModelBase
@@ -136,7 +136,7 @@ namespace PageObjectFramework.Framework
         /// <summary>
         /// Gets the title of the current page
         /// </summary>
-        protected string GetTitle()
+        public string GetTitle()
         {
             return GetInnerHtml(Title);
         }
@@ -171,7 +171,7 @@ namespace PageObjectFramework.Framework
                     "PageObjectBase: We're not on the expected page! " + 
                     "Expected: {0}; Actual: {1}", 
                     expectedTitle, Driver.Title);
-                throw new NoSuchWindowException(errMsg);
+                Assert.Fail(errMsg);
             }
         }
 

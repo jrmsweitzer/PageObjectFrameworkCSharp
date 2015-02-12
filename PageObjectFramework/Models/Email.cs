@@ -1,7 +1,5 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using PageObjectFramework.Framework;
-using System;
 using System.Threading;
 
 namespace PageObjectFramework.Models

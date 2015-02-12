@@ -1,13 +1,7 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
 using PageObjectFramework.Framework;
 using PageObjectFramework.Models;
 using PageObjectFramework.Models.Heroku;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Media;
-using System.Reflection;
 using System.Speech.Synthesis;
 using System.Threading;
 
