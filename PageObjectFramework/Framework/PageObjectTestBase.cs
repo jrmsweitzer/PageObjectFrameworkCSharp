@@ -10,12 +10,12 @@ namespace PageObjectFramework.Framework
 {
     public class PageObjectTestBase : SeleniumDriver
     {
-        private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];
+        private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];seleniumLogName
 
         private Stopwatch _suiteStopwatch;
         private Stopwatch _testStopwatch;
 
-        private string LOGNAME = "SeleniumLog";
+        private string LOGNAME = ConfigurationManager.AppSettings["seleniumLogName"];
         private string PASS = "PASS";
         private string FAIL = "FAIL";
 

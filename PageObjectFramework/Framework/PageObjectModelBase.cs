@@ -24,6 +24,7 @@ namespace PageObjectFramework.Framework
         private SeleniumLogger Logger;
         private int defaultTimeout = Int32.Parse(ConfigurationManager.AppSettings["defaultTimeout"]) * 1000;
         private Stopwatch _stopwatch;
+        private string actionLog = ConfigurationManager.AppSettings["Actions"]);
 
         /**
          *  Generic constructor
@@ -33,7 +34,7 @@ namespace PageObjectFramework.Framework
             Driver = driver;
             if (logActions)
             {
-                Logger = SeleniumLogger.GetLogger("Actions");
+                Logger = SeleniumLogger.GetLogger(actionLog);
             }
         }  
         
