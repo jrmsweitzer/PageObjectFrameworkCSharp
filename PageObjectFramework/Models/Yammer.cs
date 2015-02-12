@@ -7,11 +7,10 @@ namespace PageObjectFramework.Models
 {
     public class Yammer : PageObjectModelBase
     {
-        private static readonly string _url = "http://www.yammer.com";
-
         public Yammer(IWebDriver driver)
             : base(driver)
         {
+            _url = "http://www.yammer.com";
             GoTo(_url, "Yammer");
         }
 

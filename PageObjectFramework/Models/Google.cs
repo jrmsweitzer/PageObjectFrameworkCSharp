@@ -5,11 +5,10 @@ namespace PageObjectFramework.Models
 {
     public class Google : PageObjectModelBase
     {
-        private static readonly string _url = "http://www.google.com";
-
         public Google(IWebDriver driver)
             : base(driver)
         {
+            _url = "http://www.google.com";
             GoTo(_url, "Google");
         }
 

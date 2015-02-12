@@ -6,11 +6,10 @@ namespace PageObjectFramework.Models
 {
     public class Weather : PageObjectModelBase
     {
-        private string _url = "http://www.weather.gov/";
-        private string _title = "National Weather Service";
-
         public Weather(IWebDriver driver) : base(driver)
         {
+            _url = "http://www.weather.gov/";
+            _title = "National Weather Service";
             GoTo(_url, _title);
         }
 

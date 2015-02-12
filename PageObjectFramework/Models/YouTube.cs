@@ -6,14 +6,13 @@ namespace PageObjectFramework.Models
 {
     public class YouTube : PageObjectModelBase
     {
-        private static readonly string _url = "http://www.youtube.com";
-
         /// <summary>
         /// The YouTube home page.
         /// </summary>
         public YouTube(IWebDriver driver)
             : base(driver)
         {
+            _url = "http://www.youtube.com";
             GoTo(_url, "YouTube");
         }
 

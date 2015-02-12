@@ -23,18 +23,22 @@ namespace PageObjectFramework.Framework
     /// </summary>
     public class PageObjectModelBase
     {
-        // In this class, we will define commonly used methods so they can be 
-        // called from any of our Page Objects.
-
+        // Driver and Page-specific stuff
         protected IWebDriver Driver { get; set; }
+        protected string _url { get; set; }
+        protected string _title { get; set; }
+
+        // Config stuff
         private bool logActions = 
             ConfigurationManager.AppSettings["logAllActions"] == "true" ? 
             true : 
             false;
-        private SeleniumLogger Logger;
         private int defaultTimeout = Int32.Parse(ConfigurationManager.AppSettings["defaultTimeout"]) * 1000;
+        private string actionLog = ConfigurationManager.AppSettings["actionlogName"];
+
+        private SeleniumLogger Logger;
         private Stopwatch _stopwatch;
-        private string actionLog = ConfigurationManager.AppSettings["Actions"];
+        protected WindowHandler WindowHandler;
 
         /**
          *  Generic constructor
@@ -42,6 +46,8 @@ namespace PageObjectFramework.Framework
         public PageObjectModelBase(IWebDriver driver)
         {
             Driver = driver;
+            WindowHandler = new WindowHandler(Driver);
+
             if (logActions)
             {
                 Logger = SeleniumLogger.GetLogger(actionLog);

@@ -8,16 +8,13 @@ namespace PageObjectFramework.Models
 {
     public class Email : PageObjectModelBase
     {
-        private string _url = "https://mail.catalystitservices.com/";
-        private WindowHandler Handler { get; set; }
-
         /// <summary>
         /// The Class for the Outlook WebApp
         /// </summary>
         public Email(IWebDriver driver) : base(driver)
         {
+            _url = "https://mail.catalystitservices.com/";
             GoTo(_url);
-            Handler = new WindowHandler(driver);
         }
 
         private static readonly By UsernameInput = By.Id("username");
@@ -56,8 +53,8 @@ namespace PageObjectFramework.Models
         {
             Click(NewEmailButton);
 
-            Handler.AddNewWindowHandle("Compose Email");
-            Handler.SwitchToHandle("Compose Email");
+            WindowHandler.AddNewWindowHandle("Compose Email");
+            WindowHandler.SwitchToHandle("Compose Email");
 
             SendKeys(ToInput, to);
             Thread.Sleep(1000);
@@ -67,10 +64,10 @@ namespace PageObjectFramework.Models
             Driver.SwitchTo().Frame(Find(MessageFrame));
             SendKeys(MessageBody, message);
 
-            Handler.SwitchToHandle("Compose Email");
+            WindowHandler.SwitchToHandle("Compose Email");
             Click(SendButton);
 
-            Handler.SwitchToHandle(WindowHandler.MainWindowHandle);
+            WindowHandler.SwitchToHandle(WindowHandler.MainWindowHandle);
 
             return this;
         }
