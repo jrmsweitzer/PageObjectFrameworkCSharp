@@ -10,7 +10,7 @@ namespace PageObjectFramework.Framework
 {
     public class PageObjectTestBase : SeleniumDriver
     {
-        private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];seleniumLogName
+        private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];
 
         private Stopwatch _suiteStopwatch;
         private Stopwatch _testStopwatch;
@@ -81,12 +81,20 @@ namespace PageObjectFramework.Framework
         {
             CreateScreenshotDirectory();
             var ss = ((ITakesScreenshot)Driver).GetScreenshot();
-            var sslocation = string.Format(@"{0}{1}_{2}_{3}.jpeg",
+            var context = TestContext.CurrentContext.Test;
+
+            var testname = context.FullName.Split('.')[2];
+            var methodname = context.Name;
+            var browser = Driver.GetType().ToString().Split('.')[2];
+
+            var sslocation = string.Format(@"{0}{1}-{2}.cs__{3}()__{4}.png",
                     _screenshotDirectory,
                     passOrFail,
-                    DateTime.Now.ToString("yyyy-MM-dd"),
-                    TestContext.CurrentContext.Test.Name);
-            ss.SaveAsFile(sslocation, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    testname,
+                    methodname,
+                    browser);
+
+            ss.SaveAsFile(sslocation, System.Drawing.Imaging.ImageFormat.Png);
             LOGGER.GetLogger(LOGNAME).LogInfo(string.Format("Screenshot saved at {0}", sslocation));
         }
 
