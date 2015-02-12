@@ -5,13 +5,12 @@ namespace PageObjectFramework.Models.Heroku
 {
     public class HerokuLogin : PageObjectModelBase, IHerokuApp
     {
-        private IWebDriver Driver { get; set; }
 
         private string _url = "http://the-internet.herokuapp.com/login";
 
         public HerokuLogin(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
+            //Driver = driver;
             GoTo(_url);
         }
 

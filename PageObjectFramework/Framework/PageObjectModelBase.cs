@@ -13,7 +13,7 @@ namespace PageObjectFramework.Framework
         // In this class, we will define commonly used methods so they can be 
         // called from any of our Page Objects.
 
-        private IWebDriver Driver { get; set; }
+        protected IWebDriver Driver { get; set; }
         private bool logActions = 
             ConfigurationManager.AppSettings["logAllActions"] == "true" ? 
             true : 
@@ -114,7 +114,7 @@ namespace PageObjectFramework.Framework
         /// <summary>
         /// Gets the URL of the current page
         /// </summary>
-        protected string GetUrl()
+        public string GetUrl()
         {
             return Driver.Url;
         }
@@ -125,7 +125,7 @@ namespace PageObjectFramework.Framework
         /// <para> An optional title to add. If you supply a title, the test will </para>
         /// <para> fail if the page you end up on doesn't match the given title. </para>
         /// </summary>
-        protected void GoTo(string url, string expectedTitle = "optionalTitle")
+        public void GoTo(string url, string expectedTitle = "optionalTitle")
         {
             if (logActions)
             {

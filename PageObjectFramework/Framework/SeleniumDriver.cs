@@ -37,8 +37,8 @@ namespace PageObjectFramework.Framework
                                 break;
                             default:
                                 Console.WriteLine("App.config key error.");
-                                Console.WriteLine("Defaulting to Chrome");
-                                _driver = new ChromeDriver(_driverDirectory);
+                                Console.WriteLine("Defaulting to Firefox");
+                                _driver = new FirefoxDriver();
                                 ConfigureDriver();
                                 break;
                         }
@@ -47,7 +47,7 @@ namespace PageObjectFramework.Framework
                     {
                         Console.WriteLine("* * * * DEFAULTMODE * * * *");
                         Console.WriteLine("App.config key not present.");
-                        _driver = new ChromeDriver(_driverDirectory);
+                        _driver = new FirefoxDriver();
                         ConfigureDriver();
                     }
                 }

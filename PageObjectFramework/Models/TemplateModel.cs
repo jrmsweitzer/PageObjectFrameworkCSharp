@@ -5,8 +5,6 @@ namespace PageObjectFramework.Models
 {
     public class TemplateModel : PageObjectModelBase
     {
-        private IWebDriver Driver { get; set; }
-
         private string _url = "http://the-internet.herokuapp.com/";
         private string _title = "The Internet";
 
@@ -16,7 +14,6 @@ namespace PageObjectFramework.Models
         /// </summary>
         public TemplateModel(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
             GoTo(_url, _title);
         }
 

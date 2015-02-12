@@ -5,12 +5,10 @@ namespace PageObjectFramework.Models
 {
     public class CookieClicker : PageObjectModelBase
     {
-        private IWebDriver Driver { get; set; }
         private string _url = "http://orteil.dashnet.org/cookieclicker/";
 
         public CookieClicker(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
             GoTo(_url);
         }
 

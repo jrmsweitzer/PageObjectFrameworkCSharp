@@ -6,7 +6,6 @@ namespace PageObjectFramework.Models.Heroku
 {
     public class HerokuCheckboxes : PageObjectModelBase, IHerokuApp
     {
-        private IWebDriver Driver { get; set; }
 
         public HerokuCheckboxes(IWebDriver driver) : base(driver)
         {

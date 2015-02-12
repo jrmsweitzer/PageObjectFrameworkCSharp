@@ -1,23 +1,24 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models
 {
     public class Weather : PageObjectModelBase
     {
-        private IWebDriver Driver;
         private string _url = "http://www.weather.gov/";
         private string _title = "National Weather Service";
 
         public Weather(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
             GoTo(_url, _title);
         }
 
         private static readonly By LocationInput = By.Id("inputstring");
         private static readonly By GoButton = By.Id("btnSearch");
-        private static readonly By TomorrowText = By.XPath("//span[.='Thursday']/..");
+
+        private static readonly By TomorrowDayText = By.XPath("(//div[@class='one-ninth-first'])[3]/p[@class='txt-ctr-caps']");
+        private static readonly ByFormatter TomorrowText = ByFormatter.XPath("//span[.='{0}']/..");
 
         /// <summary>
         /// inputs your location into the location box
@@ -36,7 +37,16 @@ namespace PageObjectFramework.Models
         /// <returns></returns>
         public string GetTomorrowsWeather()
         {
-            return GetText(TomorrowText);
+            string tomorrow = ConvertToPascalCase(GetText(TomorrowDayText));
+            Assert.AreEqual("Friday", tomorrow);
+            return GetText(TomorrowText.Format(tomorrow));
+        }
+
+        private string ConvertToPascalCase(string dayOfWeek)
+        {
+            dayOfWeek = dayOfWeek.ToLower();
+            return dayOfWeek.Substring(0, 1).ToUpper() + dayOfWeek.Substring(1, dayOfWeek.Length - 1);
+            
         }
     }
 }

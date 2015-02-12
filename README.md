@@ -62,6 +62,10 @@ the tests will run in Chrome. However, that can be changed in the App.config
 file.
 
 
+*** USE NUNIT WHEN WRITING YOUR TESTS! THERE IS A BUG WHERE THE TESTS WON'T
+    CLOSE IF USING VISUAL STUDIO'S TESTING FRAMEWORK! ***
+
+
 I hope you enjoy using this Framework! If you have any 
 questions/comments/concerns, feel free to email me at
 jsweitzer@catalystitservices.com! 

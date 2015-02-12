@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 using PageObjectFramework.Framework;
 using PageObjectFramework.Models;
 using PageObjectFramework.Models.Heroku;
-using PageObjectFramework.Resources;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -127,8 +126,7 @@ namespace PageObjectFramework.Tests
 
             if (emailUsername != NOTSET && emailPassword != NOTSET)
             {
-                var toEmail = "AllEmployees&Associates@catalystitservices.com";
-                //var toEmail = "jsweitzer@catalystitservices.com";
+                var toEmail = "jsweitzer@catalystitservices.com";
                 var subject = "Selenium PageObject Framework Source Code with C#";
                 var message = "Check out this neat Source Code! It's an entire framework just for Selenium," +
                         " using PageObjects! https://github.com/jrmsweitzer/PageObjectFramework.";
@@ -159,93 +157,6 @@ namespace PageObjectFramework.Tests
             herokuLogin
                 .Login();
             Thread.Sleep(5000);
-        }
-
-
-        [Test]
-        public void TimeTest()
-        {
-            var heroku = new HerokuMain(Driver);
-
-            //PauseUntilTime("5:20:00");
-            var herokuLogin =
-                ((HerokuLogin)heroku
-                .ClickLink(HerokuMain.FormAuthentication))
-                .WriteInUsernameTextBox("10 minutes until the presentation...");
-            //PauseUntilTime("5:20:30");
-            //herokuLogin.WriteInUsernameTextBox("Did you know that a quarter of all people make up 25% of the population?");
-            //PauseUntilTime("5:21:00");
-            //herokuLogin.WriteInUsernameTextBox("Nine minutes to go...");
-            //PauseUntilTime("5:21:30");
-            //herokuLogin.WriteInUsernameTextBox("Did you know the center of a donut is 100% fat-free?");
-            //PauseUntilTime("5:22:00");
-            //herokuLogin.WriteInUsernameTextBox("Just eight minutes until the sun explodes! Just kidding.");
-            //PauseUntilTime("5:22:20");
-            //herokuLogin.WriteInUsernameTextBox("Build a man a fire, and he'll be warm for a day...");
-            //PauseUntilTime("5:22:40");
-            //herokuLogin.WriteInUsernameTextBox("Light a man on fire, and he'll be warm for life.");
-            //PauseUntilTime("5:23:00");
-            //herokuLogin.WriteInUsernameTextBox("Only seven minutes left! Can you feel the energy?");
-            //PauseUntilTime("5:23:20");
-            //herokuLogin.WriteInUsernameTextBox("There are 10 types of people in the world...");
-            //PauseUntilTime("5:23:40");
-            //herokuLogin.WriteInUsernameTextBox("Those who understand binary, and those who don't");
-            //PauseUntilTime("5:24:00");
-            //herokuLogin.WriteInUsernameTextBox("Six minutes...");
-            //PauseUntilTime("5:24:20");
-            //herokuLogin.WriteInUsernameTextBox("If at first you don't succeed... ");
-            //PauseUntilTime("5:24:40");
-            //herokuLogin.AppendToUsernameTextBox("Call it Version 1.0");
-            //PauseUntilTime("5:25:00");
-            //herokuLogin.WriteInUsernameTextBox("Earth is shutting down in five minutes - please save all files and log out.");
-            //PauseUntilTime("5:25:30");
-            //herokuLogin.WriteInUsernameTextBox("Keyboard not found. Press F1 to continue...");
-            //PauseUntilTime("5:26:00");
-            //herokuLogin.WriteInUsernameTextBox("Four minutes remaining! Go get yourself a drink.");
-            //PauseUntilTime("5:26:30");
-            //herokuLogin.WriteInUsernameTextBox("Three and a half minutes...");
-            //PauseUntilTime("5:27:00");
-            //herokuLogin.WriteInUsernameTextBox("Three minutes...");
-            //PauseUntilTime("5:27:30");
-            //herokuLogin.WriteInUsernameTextBox("Two and a half...");
-            //PauseUntilTime("5:28:00");
-            //herokuLogin.WriteInUsernameTextBox("Two minutes...");
-            //PauseUntilTime("5:28:30");
-            //herokuLogin.WriteInUsernameTextBox("A minute and a half until showtime!");
-            //PauseUntilTime("5:29:00");
-
-            herokuLogin.WriteInUsernameTextBox("Seconds remaining:   ");
-            var currentSeconds = Int32.Parse(DateTime.Now.ToString("ss"));
-            while (currentSeconds != 59)
-            {
-                var secondsRemaining = 60 - Int32.Parse(DateTime.Now.ToString("ss"));
-                while (secondsRemaining + currentSeconds == 60)
-                {
-                    // stall for a second
-                    secondsRemaining = 60 - Int32.Parse(DateTime.Now.ToString("ss"));
-                }
-                herokuLogin.Backspace();
-                if (secondsRemaining >= 9)
-                {
-                    herokuLogin.Backspace();
-                }
-                herokuLogin.AppendToUsernameTextBox(secondsRemaining.ToString());
-                currentSeconds = Int32.Parse(DateTime.Now.ToString("ss"));
-            }
-
-
-        }
-
-        /// <summary>
-        /// Pauses until the given time
-        /// <para> @param time - the time to pause until, following h:mm:ss format</para>
-        /// </summary>
-        private void PauseUntilTime(string time)
-        {
-            while (!DateTime.Now.ToString("h:mm:ss").Contains(time))
-            {
-                // Do nothing except wait.
-            }
         }
     }
 }

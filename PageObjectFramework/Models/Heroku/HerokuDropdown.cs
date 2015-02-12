@@ -7,7 +7,6 @@ namespace PageObjectFramework.Models.Heroku
 {
     public class HerokuDropdown : PageObjectModelBase, IHerokuApp
     {
-        private IWebDriver Driver { get; set; }
 
         public HerokuDropdown(IWebDriver driver) : base(driver)
         {

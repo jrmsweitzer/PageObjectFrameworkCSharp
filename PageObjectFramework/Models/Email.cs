@@ -8,7 +8,6 @@ namespace PageObjectFramework.Models
 {
     public class Email : PageObjectModelBase
     {
-        private IWebDriver Driver { get; set; }
         private string _url = "https://mail.catalystitservices.com/";
         private WindowHandler Handler { get; set; }
 
@@ -17,7 +16,6 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Email(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
             GoTo(_url);
             Handler = new WindowHandler(driver);
         }

@@ -7,12 +7,11 @@ namespace PageObjectFramework.Models
 {
     public class HerokuMain : PageObjectModelBase, IHerokuApp
     {
-        private IWebDriver Driver { get; set; }
         private static readonly string _url = "http://the-internet.herokuapp.com/";
 
         public HerokuMain(IWebDriver driver) : base(driver)
         {
-            Driver = driver;
+            //Driver = driver;
             GoTo(_url, "The Internet");
         }
 

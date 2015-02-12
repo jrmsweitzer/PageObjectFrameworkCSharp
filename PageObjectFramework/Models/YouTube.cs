@@ -6,7 +6,6 @@ namespace PageObjectFramework.Models
 {
     public class YouTube : PageObjectModelBase
     {
-        private IWebDriver Driver { get; set; }
         private static readonly string _url = "http://www.youtube.com";
 
         /// <summary>
@@ -15,7 +14,6 @@ namespace PageObjectFramework.Models
         public YouTube(IWebDriver driver)
             : base(driver)
         {
-            Driver = driver;
             GoTo(_url, "YouTube");
         }
 
