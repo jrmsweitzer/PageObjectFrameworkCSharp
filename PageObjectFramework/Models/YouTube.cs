@@ -16,9 +16,9 @@ namespace PageObjectFramework.Models
             GoTo(_url, "YouTube");
         }
 
-        private static readonly By SearchDialog = By.Name("search_query");
-        private static readonly By SearchButton = By.Id("search-btn");
-        private static readonly ByFormatter VideoByIndex = ByFormatter.XPath("(//h3[@class='yt-lockup-title'])[{0}]");
+        private static readonly By _inputSearch = By.Name("search_query");
+        private static readonly By _btnSearch = By.Id("search-btn");
+        private static readonly ByFormatter _linkVideoByIndex = ByFormatter.XPath("(//h3[@class='yt-lockup-title'])[{0}]");
 
         /// <summary>
         /// Searches YouTube for the given query
@@ -26,8 +26,8 @@ namespace PageObjectFramework.Models
         /// </summary>
         public YouTube SearchYouTube(string text)
         {
-            ClearAndSendKeys(SearchDialog, text);
-            Click(SearchButton);
+            ClearAndSendKeys(_inputSearch, text);
+            Click(_btnSearch);
             Thread.Sleep(2000);
             return this;
         }
@@ -38,7 +38,7 @@ namespace PageObjectFramework.Models
         /// </summary>
         public YouTube ClickVideoAtIndex(int n)
         {
-            Click(VideoByIndex.Format(n));
+            Click(_linkVideoByIndex.Format(n));
             return this;
         }
     }

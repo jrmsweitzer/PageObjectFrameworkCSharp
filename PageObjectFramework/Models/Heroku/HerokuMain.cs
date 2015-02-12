@@ -17,6 +17,8 @@ namespace PageObjectFramework.Models
         public const string Dropdown = "Dropdown";
         public const string FormAuthentication = "Form Authentication";
 
+        private static readonly ByFormatter _linkByText = ByFormatter.LinkText("{0}")
+
         /// <summary>
         /// Clicks link defined by the linkText
         /// <para> @param linkText - The text of the link to click.</para>
@@ -24,16 +26,16 @@ namespace PageObjectFramework.Models
         /// </summary>
         public IHerokuApp ClickLink(string linkText)
         {
-            Click(By.LinkText(linkText));
+            Click(_linkByText.Format(linkText));
             Thread.Sleep(1000);
             switch (linkText)
             {
                 case Checkboxes:
-                    return new HerokuCheckboxes(Driver);
+                    return new HerokuCheckboxes(_driver);
                 case Dropdown:
-                    return new HerokuDropdown(Driver);
+                    return new HerokuDropdown(_driver);
                 case FormAuthentication:
-                    return new HerokuLogin(Driver);
+                    return new HerokuLogin(_driver);
                 default:
                     return this;
             }
@@ -46,7 +48,7 @@ namespace PageObjectFramework.Models
         public HerokuMain ReturnToHeroku()
         {
             GoTo(_url, "The Internet");
-            return new HerokuMain(Driver);
+            return new HerokuMain(_driver);
         }
     }
 }

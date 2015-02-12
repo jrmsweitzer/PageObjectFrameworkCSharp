@@ -14,15 +14,15 @@ namespace PageObjectFramework.Models
             GoTo(_url, "Yammer");
         }
 
-        private static readonly By LogInLink = By.LinkText("Log In");
-        private static readonly By Email = By.Id("login");
-        private static readonly By Password = By.Id("password");
-        private static readonly By LogInButton = By.XPath("//span[.='Log In']/..");
-        private static readonly By WhatAreYouWorkingOn = By.LinkText("What are you working on?");
-        private static readonly By ShareSomethingWithThisGroup = By.LinkText("Share something with this group...");
-        private static readonly By Status = By.XPath("(//textarea[contains(@id,'yamjs')])[1]");
-        private static readonly By PostButton = By.XPath("(//button[@data-qaid='post_button'])[1]");
-        private static readonly ByFormatter GroupByName = ByFormatter.XPath(
+        private static readonly By _linkLogIn = By.LinkText("Log In");
+        private static readonly By _inputEmail = By.Id("login");
+        private static readonly By _inputPassword = By.Id("password");
+        private static readonly By _btnLogInButton = By.XPath("//span[.='Log In']/..");
+        private static readonly By _linkWhatAreYouWorkingOn = By.LinkText("What are you working on?");
+        private static readonly By _linkShareSomethingWithThisGroup = By.LinkText("Share something with this group...");
+        private static readonly By _inputStatus = By.XPath("(//textarea[contains(@id,'yamjs')])[1]");
+        private static readonly By _btnPost = By.XPath("(//button[@data-qaid='post_button'])[1]");
+        private static readonly ByFormatter _linkGroupByName = ByFormatter.XPath(
             "//ul[contains(@class,'group')]//span[contains(.,'{0}')]/..");
 
         /// <summary>
@@ -31,12 +31,12 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Yammer ClickGroup(string groupName)
         {
-            if (Find(GroupByName.Format(groupName)) == null)
+            if (Find(_linkGroupByName.Format(groupName)) == null)
             {
                 Assert.Fail(string.Format("Cannot find group by name {0}."),
                     groupName);
             }
-            Click(GroupByName.Format(groupName));
+            Click(_linkGroupByName.Format(groupName));
             return this;
         }
 
@@ -47,10 +47,10 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Yammer LogInWithCredentials(string email, string password)
         {
-            Click(LogInLink);
-            SendKeys(Email, email);
-            SendKeys(Password, password);
-            Click(LogInButton);
+            Click(_linkLogIn);
+            SendKeys(_inputEmail, email);
+            SendKeys(_inputPassword, password);
+            Click(_btnLogInButton);
             Thread.Sleep(5000);
             return this;
         }
@@ -61,9 +61,9 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Yammer PostNewMessage(string message)
         {
-            Click(WhatAreYouWorkingOn);
-            ClearAndSendKeys(Status, message);
-            Click(PostButton);
+            Click(_linkWhatAreYouWorkingOn);
+            ClearAndSendKeys(_inputStatus, message);
+            Click(_btnPost);
             return this;
         }
     }

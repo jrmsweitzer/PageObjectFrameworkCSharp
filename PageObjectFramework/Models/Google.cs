@@ -12,8 +12,8 @@ namespace PageObjectFramework.Models
             GoTo(_url, "Google");
         }
 
-        private static readonly By SearchDialog = By.Name("q");
-        private static readonly By SearchButton = By.Name("btnG");
+        private static readonly By _inputSearch = By.Name("q");
+        private static readonly By _btnSearch = By.Name("btnG");
 
         /* Here are two example methods of using the newly generated objects with friendlier
          * names so that it clearly identifies the task being completed
@@ -22,23 +22,23 @@ namespace PageObjectFramework.Models
          */
         public Google AppendSearchText(string text)
         {
-            SendKeys(SearchDialog, text);
+            SendKeys(_inputSearch, text);
             return this;
         }
         public Google EnterSearchText(string text)
         {
-            ClearAndSendKeys(SearchDialog, text);
+            ClearAndSendKeys(_inputSearch, text);
             return this;
         }
         public Google Search()
         {
-            Click(SearchButton);
+            Click(_btnSearch);
             return this;
         }
         public Google ReturnToGoogle()
         {
             GoTo(_url, "Google");
-            return new Google(Driver);
+            return new Google(_driver);
         }
     }
 }

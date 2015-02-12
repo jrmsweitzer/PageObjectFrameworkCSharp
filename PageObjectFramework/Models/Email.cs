@@ -15,17 +15,17 @@ namespace PageObjectFramework.Models
             GoTo(_url);
         }
 
-        private static readonly By UsernameInput = By.Id("username");
-        private static readonly By PasswordInput = By.Id("password");
-        private static readonly By SignInButton = By.XPath("//input[@type='submit']");
+        private static readonly By _inputUsername = By.Id("username");
+        private static readonly By _inputPassword = By.Id("password");
+        private static readonly By _btnSignIn = By.XPath("//input[@type='submit']");
 
-        private static readonly By NewEmailButton = By.XPath("//a[.='New']");
-        private static readonly By ToInput = By.Id("divTo");
-        private static readonly By SubjectInput = By.Id("txtSubj");
-        private static readonly By MessageInput = By.Id("txtBdy");
-        private static readonly By MessageFrame = By.Id("ifBdy");
-        private static readonly By MessageBody = By.XPath("//style[@id='owaTempEditStyle']/../../body");
-        private static readonly By SendButton = By.Id("send");
+        private static readonly By _btnNewEmail = By.XPath("//a[.='New']");
+        private static readonly By _inputTo = By.Id("divTo");
+        private static readonly By _inputSubject = By.Id("txtSubj");
+        private static readonly By _inputMessage = By.Id("txtBdy");
+        private static readonly By _ifrMessage = By.Id("ifBdy");
+        private static readonly By _bodyMessage = By.XPath("//style[@id='owaTempEditStyle']/../../body");
+        private static readonly By _btnSend = By.Id("send");
 
         /// <summary>
         /// Signs in to the email account with the given credentials
@@ -34,9 +34,9 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Email LogInWithCredentials(string username, string password)
         {
-            SendKeys(UsernameInput, username);
-            SendKeys(PasswordInput, password);
-            Click(SignInButton);
+            SendKeys(_inputUsername, username);
+            SendKeys(_inputPassword, password);
+            Click(_btnSignIn);
 
             return this;
         }
@@ -49,23 +49,23 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Email ComposeNewEmail(string to, string subject, string message)
         {
-            Click(NewEmailButton);
+            Click(_btnNewEmail);
 
-            WindowHandler.AddNewWindowHandle("Compose Email");
-            WindowHandler.SwitchToHandle("Compose Email");
+            _windowHandler.AddNewWindowHandle("Compose Email");
+            _windowHandler.SwitchToHandle("Compose Email");
 
-            SendKeys(ToInput, to);
+            SendKeys(_inputTo, to);
             Thread.Sleep(1000);
-            SendKeys(SubjectInput, subject);
+            SendKeys(_inputSubject, subject);
             Thread.Sleep(1000);
 
-            Driver.SwitchTo().Frame(Find(MessageFrame));
-            SendKeys(MessageBody, message);
+            _driver.SwitchTo().Frame(Find(_ifrMessage));
+            SendKeys(_bodyMessage, message);
 
-            WindowHandler.SwitchToHandle("Compose Email");
-            Click(SendButton);
+            _windowHandler.SwitchToHandle("Compose Email");
+            Click(_btnSend);
 
-            WindowHandler.SwitchToHandle(WindowHandler.MainWindowHandle);
+            _windowHandler.SwitchToHandle(WindowHandler.MainWindowHandle);
 
             return this;
         }

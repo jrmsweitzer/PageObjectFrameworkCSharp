@@ -11,7 +11,7 @@ namespace PageObjectFramework.Models.Heroku
         {
         }
 
-        public static readonly By Dropdown = By.Id("dropdown");
+        public static readonly By _ddOptions = By.Id("dropdown");
 
         public static readonly string Option1 = "Option 1";
         public static readonly string Option2 = "Option 2";
@@ -22,7 +22,7 @@ namespace PageObjectFramework.Models.Heroku
         /// </summary>
         public HerokuDropdown SelectOption(string option)
         {
-            SelectByText(Dropdown, option);
+            SelectByText(_ddOptions, option);
             Thread.Sleep(1000);
             return this;
         }

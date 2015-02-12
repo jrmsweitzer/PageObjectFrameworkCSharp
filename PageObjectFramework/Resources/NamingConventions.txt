@@ -1,0 +1,35 @@
+General Naming Conventions - 
+https://en.wikibooks.org/wiki/C_Sharp_Programming/Naming
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When creating your By locators, prefix the names like so:
+
+Element		Prefix	Example
+-----------------------------------
+A			link	_linkSubmit
+Body		body	_bodyMessage
+Button		btn		_btnCancel
+Checkbox	cb		_cbToggle
+Div			div		_divMainContent
+Dropdown	dd		_ddState
+IFrame		ifr		_ifrCreditCard
+Image		img		_imgAvatar
+Input		input	_inputSurname
+Label		lbl		_lblTitleBar
+P			p		_pMainContent
+Span		span	_spanSubpages
+Table		tbl		_tbMainTable
+TableBody	tbody	_tbodyTableBody
+TableCell	td		_tdTableCell
+TableHead	thead	_theadTableHeader
+TableRow	tr		_trRow1
+
+
+When creating your ByFormatter locators, suffix the names with By, followed by
+the formatter option, like so:
+
+LinkByText
+RowByIndex
+OptionByName
+

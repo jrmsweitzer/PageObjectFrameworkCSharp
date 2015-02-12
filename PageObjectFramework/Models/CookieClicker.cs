@@ -11,11 +11,11 @@ namespace PageObjectFramework.Models
             GoTo(_url);
         }
 
-        private static readonly By BigCookie = By.Id("bigCookie");
-        private static readonly By Cursor = By.Id("productName0");
-        private static readonly By Grandma = By.Id("productName1");
-        private static readonly By Farm = By.Id("productName2");
-        private static readonly By Factory = By.Id("productName3");
+        private static readonly By _btnBigCookie = By.Id("bigCookie");
+        private static readonly By _btnCursor = By.Id("productName0");
+        private static readonly By _btnGrandma = By.Id("productName1");
+        private static readonly By _btnFarm = By.Id("productName2");
+        private static readonly By _btnFactory = By.Id("productName3");
 
         /// <summary>
         /// Clicks the big cookie
@@ -25,7 +25,7 @@ namespace PageObjectFramework.Models
         {
             for (int i = 0; i < numTimes; i++)
             {
-                Click(BigCookie);
+                Click(_btnBigCookie);
             }
             return this;
         }
@@ -35,7 +35,7 @@ namespace PageObjectFramework.Models
         /// </summary>
         public CookieClicker BuyCursor()
         {
-            Click(Cursor);
+            Click(_btnCursor);
             return this;
         }
 
@@ -44,7 +44,7 @@ namespace PageObjectFramework.Models
         /// </summary>
         public CookieClicker BuyGrandma()
         {
-            Click(Grandma);
+            Click(_btnGrandma);
             return this;
         }
 
@@ -53,7 +53,7 @@ namespace PageObjectFramework.Models
         /// </summary>
         public CookieClicker BuyFarm()
         {
-            Click(Farm);
+            Click(_btnFarm);
             return this;
         }
 
@@ -62,7 +62,7 @@ namespace PageObjectFramework.Models
         /// </summary>
         public CookieClicker BuyFactory()
         {
-            Click(Factory);
+            Click(_btnFactory);
             return this;
         }
     }

@@ -24,33 +24,33 @@ namespace PageObjectFramework.Framework
     public class PageObject
     {
         // Driver and Page-specific stuff
-        protected IWebDriver Driver { get; set; }
+        protected IWebDriver _driver { get; set; }
         protected string _url { get; set; }
         protected string _title { get; set; }
 
         // Config stuff
-        private bool logActions = 
+        private bool _logActions = 
             ConfigurationManager.AppSettings["logAllActions"] == "true" ? 
             true : 
             false;
-        private int defaultTimeout = Int32.Parse(ConfigurationManager.AppSettings["defaultTimeout"]) * 1000;
-        private string actionLog = ConfigurationManager.AppSettings["actionlogName"];
+        private int _defaultTimeout = Int32.Parse(ConfigurationManager.AppSettings["defaultTimeout"]) * 1000;
+        private string _actionLog = ConfigurationManager.AppSettings["actionlogName"];
 
-        private SeleniumLogger Logger;
+        private SeleniumLogger _logger;
         private Stopwatch _stopwatch;
-        protected WindowHandler WindowHandler;
+        protected WindowHandler _windowHandler;
 
         /**
          *  Generic constructor
          */
         public PageObject(IWebDriver driver)
         {
-            Driver = driver;
-            WindowHandler = new WindowHandler(Driver);
+            _driver = driver;
+            _windowHandler = new WindowHandler(_driver);
 
-            if (logActions)
+            if (_logActions)
             {
-                Logger = SeleniumLogger.GetLogger(actionLog);
+                _logger = SeleniumLogger.GetLogger(_actionLog);
             }
         }  
         
@@ -65,9 +65,9 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void Clear(By by)
         {
-            if (logActions)
+            if (_logActions)
             {
-                Logger.LogMessage(string.Format("Clear: {0}", by));
+                _logger.LogMessage(string.Format("Clear: {0}", by));
             }
             Find(by).Clear();
         }
@@ -79,10 +79,10 @@ namespace PageObjectFramework.Framework
         protected void ClearAndSendKeys(By by, string value)
         {
             Clear(by);
-            if (logActions)
+            if (_logActions)
             {
-                Logger.LogMessage(string.Format("SndKy: {0}", value));
-                Logger.LogMessage(string.Format("   to: {0}", by));
+                _logger.LogMessage(string.Format("SndKy: {0}", value));
+                _logger.LogMessage(string.Format("   to: {0}", by));
             }
             Find(by).SendKeys(value);
         }
@@ -92,12 +92,12 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void Click(By by)
         {
-            if (logActions)
+            if (_logActions)
             {
-                Logger.LogMessage(string.Format("Click: {0}", by));
+                _logger.LogMessage(string.Format("Click: {0}", by));
             }
             var element = Find(by);
-            var actions = new Actions(Driver);
+            var actions = new Actions(_driver);
             actions.MoveToElement(element).Click().Perform();
         }
 
@@ -106,7 +106,7 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected IWebElement Find(By by)
         {
-            return Driver.FindElement(by);
+            return _driver.FindElement(by);
         }
 
         /// <summary> Finds all elements by the given selector
@@ -114,7 +114,7 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected ICollection<IWebElement> FindAll(By by)
         {
-            return Driver.FindElements(by);
+            return _driver.FindElements(by);
         }
 
         /// <summary>Gets everything inside the html tags for the given selector
@@ -146,7 +146,7 @@ namespace PageObjectFramework.Framework
         /// </summary>
         public string GetUrl()
         {
-            return Driver.Url;
+            return _driver.Url;
         }
 
         /// <summary>Go to the given URL.
@@ -157,20 +157,20 @@ namespace PageObjectFramework.Framework
         /// </summary>
         public void GoTo(string url, string expectedTitle = "optionalTitle")
         {
-            if (logActions)
+            if (_logActions)
             {
-                Logger.LogMessage(string.Format("GoUrl: {0}", url));
+                _logger.LogMessage(string.Format("GoUrl: {0}", url));
             }
             var rootUrl = new Uri(url);
-            Driver.Navigate().GoToUrl(rootUrl);
+            _driver.Navigate().GoToUrl(rootUrl);
 
             if ( "optionalTitle" != expectedTitle &&
-                !Driver.Title.Contains(expectedTitle))
+                !_driver.Title.Contains(expectedTitle))
             {
                 var errMsg = String.Format(
                     "PageObjectBase: We're not on the expected page! " + 
                     "Expected: {0}; Actual: {1}", 
-                    expectedTitle, Driver.Title);
+                    expectedTitle, _driver.Title);
                 Assert.Fail(errMsg);
             }
         }
@@ -181,10 +181,10 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void SendKeys(By by, string value)
         {
-            if (logActions)
+            if (_logActions)
             {
-                Logger.LogMessage(string.Format("SndKy: {0}", value));
-                Logger.LogMessage(string.Format("   to: {0}", by));
+                _logger.LogMessage(string.Format("SndKy: {0}", value));
+                _logger.LogMessage(string.Format("   to: {0}", by));
             }
             Find(by).SendKeys(value);
         }
@@ -195,10 +195,10 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void SelectByText(By by, string optionText)
         {
-            if (logActions)
+            if (_logActions)
             {
-                Logger.LogMessage(string.Format("Selct: {0}", optionText));
-                Logger.LogMessage(string.Format("   at: {0}", by));
+                _logger.LogMessage(string.Format("Selct: {0}", optionText));
+                _logger.LogMessage(string.Format("   at: {0}", by));
             }
             var select = new SelectElement(Find(by));
             if (null != select)
@@ -251,7 +251,7 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void WaitForElementToBeDeleted(By by)
         {
-            WaitForElementToBeDeleted(by, defaultTimeout);
+            WaitForElementToBeDeleted(by, _defaultTimeout);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace PageObjectFramework.Framework
         protected void WaitForElementToExist(By by)
         {
             // Overloaded
-            WaitForElementToExist(by, defaultTimeout);
+            WaitForElementToExist(by, _defaultTimeout);
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace PageObjectFramework.Framework
         protected void WaitForUrl(string url)
         {
             // Overloaded
-            WaitForUrl(url, defaultTimeout);
+            WaitForUrl(url, _defaultTimeout);
         }
     }
 }

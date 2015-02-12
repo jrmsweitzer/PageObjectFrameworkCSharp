@@ -11,8 +11,8 @@ namespace PageObjectFramework.Models.Heroku
         {
         }
 
-        public static readonly By UncheckedCheckBox = By.XPath("//form/input[1]");
-        public static readonly By CheckedCheckBox = By.XPath("//form/input[2]");
+        public static readonly By _cbUnchecked = By.XPath("//form/input[1]");
+        public static readonly By _cbChecked = By.XPath("//form/input[2]");
 
         /// <summary>
         /// Toggles the Unchecked checkbox
@@ -22,7 +22,7 @@ namespace PageObjectFramework.Models.Heroku
         {
             for (int i = 0; i < numTimes; i++)
             {
-                Click(UncheckedCheckBox);
+                Click(_cbUnchecked);
                 Thread.Sleep(1000);
             }
             return this;
@@ -36,7 +36,7 @@ namespace PageObjectFramework.Models.Heroku
         {
             for (int i = 0; i < numTimes; i++)
             {
-                Click(CheckedCheckBox);
+                Click(_cbChecked);
                 Thread.Sleep(1000);
             }
             return this;

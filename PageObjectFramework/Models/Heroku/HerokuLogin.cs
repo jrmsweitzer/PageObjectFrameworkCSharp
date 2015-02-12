@@ -11,9 +11,9 @@ namespace PageObjectFramework.Models.Heroku
             GoTo(_url);
         }
 
-        private static readonly By Username = By.Id("username");
-        private static readonly By Password = By.Id("password");
-        private static readonly By LoginButton = By.XPath("//button");
+        private static readonly By _inputUsername = By.Id("username");
+        private static readonly By _inputPassword = By.Id("password");
+        private static readonly By _btnLogin = By.XPath("//button");
 
         /// <summary>
         /// Appends text to the text already in the username textbox
@@ -21,7 +21,7 @@ namespace PageObjectFramework.Models.Heroku
         /// </summary>
         public HerokuLogin AppendToUsernameTextBox(string text)
         {
-            SendKeys(Username, text);
+            SendKeys(_inputUsername, text);
             return this;
         }
 
@@ -30,7 +30,7 @@ namespace PageObjectFramework.Models.Heroku
         /// </summary>
         public HerokuLogin Backspace()
         {
-            Find(Username).SendKeys(Keys.Backspace);
+            Find(_inputUsername).SendKeys(Keys.Backspace);
             return this;
         }
 
@@ -39,7 +39,7 @@ namespace PageObjectFramework.Models.Heroku
         /// </summary>
         public HerokuLogin ClearUsernameTextBox()
         {
-            Clear(Username);
+            Clear(_inputUsername);
             return this;
         }
 
@@ -49,8 +49,8 @@ namespace PageObjectFramework.Models.Heroku
         public HerokuLogin Login()
         {
             WriteInUsernameTextBox("tomsmith");
-            SendKeys(Password, "SuperSecretPassword!");
-            Click(LoginButton);
+            SendKeys(_inputPassword, "SuperSecretPassword!");
+            Click(_btnLogin);
             return this;
         }
 
@@ -61,7 +61,7 @@ namespace PageObjectFramework.Models.Heroku
         public HerokuLogin ReturnToLogin()
         {
             GoTo(_url);
-            return new HerokuLogin(Driver);
+            return new HerokuLogin(_driver);
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace PageObjectFramework.Models.Heroku
         /// </summary>
         public HerokuLogin WriteInUsernameTextBox(string text)
         {
-            Clear(Username);
-            SendKeys(Username, text);
+            Clear(_inputUsername);
+            SendKeys(_inputUsername, text);
             return this;
         }
     }

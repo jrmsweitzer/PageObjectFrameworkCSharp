@@ -109,6 +109,7 @@
     <Content Include="Drivers\chromedriver.exe" />
     <Content Include="Drivers\IEDriverServer.exe" />
     <Content Include="Drivers\ReadMe.txt" />
+    <Content Include="Resources\NamingConventions.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

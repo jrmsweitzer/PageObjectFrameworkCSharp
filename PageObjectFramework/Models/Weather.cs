@@ -13,11 +13,11 @@ namespace PageObjectFramework.Models
             GoTo(_url, _title);
         }
 
-        private static readonly By LocationInput = By.Id("inputstring");
-        private static readonly By GoButton = By.Id("btnSearch");
+        private static readonly By _inputLocation = By.Id("inputstring");
+        private static readonly By _btnGo = By.Id("btnSearch");
 
-        private static readonly By TomorrowDayText = By.XPath("(//div[@class='one-ninth-first'])[3]/p[@class='txt-ctr-caps']");
-        private static readonly ByFormatter TomorrowText = ByFormatter.XPath("//span[.='{0}']/..");
+        private static readonly By _pTomorrow = By.XPath("(//div[@class='one-ninth-first'])[3]/p[@class='txt-ctr-caps']");
+        private static readonly ByFormatter _spanWeatherForTomorrow = ByFormatter.XPath("//span[.='{0}']/..");
 
         /// <summary>
         /// inputs your location into the location box
@@ -25,8 +25,8 @@ namespace PageObjectFramework.Models
         /// </summary>
         public Weather EnterLocation(string location)
         {
-            SendKeys(LocationInput, location);
-            Click(GoButton);
+            SendKeys(_inputLocation, location);
+            Click(_btnGo);
             return this;
         }
 
@@ -36,9 +36,9 @@ namespace PageObjectFramework.Models
         /// <returns></returns>
         public string GetTomorrowsWeather()
         {
-            string tomorrow = ConvertToPascalCase(GetText(TomorrowDayText));
+            string tomorrow = ConvertToPascalCase(GetText(_pTomorrow));
             Assert.AreEqual("Friday", tomorrow);
-            return GetText(TomorrowText.Format(tomorrow));
+            return GetText(_spanWeatherForTomorrow.Format(tomorrow));
         }
 
         private string ConvertToPascalCase(string dayOfWeek)
