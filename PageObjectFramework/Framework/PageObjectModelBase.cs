@@ -11,6 +11,16 @@ using System.Threading;
 
 namespace PageObjectFramework.Framework
 {
+    /// <summary>
+    /// The Model Base for all Page Objects.
+    /// <para> </para>
+    /// <para>Any class implementing PageObjectModelBase should have a constructor like so:</para>
+    /// <para>public PageObjectNameGoesHere(IWebDriver driver) : base(driver)</para>
+    /// <para>{</para>
+    /// <para>    // Optional GoTo();</para>
+    /// <para>    GoTo(url);</para>
+    /// <para>}</para>
+    /// </summary>
     public class PageObjectModelBase
     {
         // In this class, we will define commonly used methods so they can be 
