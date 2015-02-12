@@ -1,9 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using PageObjectFramework.Models;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Threading;
 
 namespace PageObjectFramework.Framework
@@ -19,6 +22,8 @@ namespace PageObjectFramework.Framework
             true : 
             false;
         private SeleniumLogger Logger;
+        private int defaultTimeout = ConfigurationManager.AppSettings["defaultTimeout"] * 1000;
+        private Stopwatch _stopwatch;
 
         /**
          *  Generic constructor
@@ -85,6 +90,14 @@ namespace PageObjectFramework.Framework
         protected IWebElement Find(By by)
         {
             return Driver.FindElement(by);
+        }
+
+        /// <summary> Finds all elements by the given selector
+        /// <para> @param by - the by selector for the given element</para>
+        /// </summary>
+        protected ICollection<IWebElement> FindAll(By by)
+        {
+            return Driver.FindElements(by);
         }
 
         /// <summary>Gets everything inside the html tags for the given selector
@@ -190,6 +203,69 @@ namespace PageObjectFramework.Framework
         protected void Submit(By by)
         {
             Find(by).Submit();
+        }
+
+        /// <summary>
+        /// Pauses play until a given element is no longer on the DOM.
+        /// <para>@param by - the by selector for the given element</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the element to be deleted.</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        protected void WaitForElementToBeDeleted(By by, int timeout = defaultTimeout)
+        {
+            int startTime = _stopwatch.Start;
+            while (FindAll(by).Count > 0)
+            {
+                if (_stopwatch.ElapsedMilliseconds > timeout)
+                {
+                    Assert.Fail(string.Format("Element '{0}' was still visible after {1} seconds!",
+                        by.ToString(), timeout / 1000));
+                }
+            }
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+        }
+
+        /// <summary>
+        /// Pauses play until a given element becomes visible.
+        /// <para>@param by - the by selector for the given element</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the element to exist</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        protected void WaitForElementToExist(By by, int timeout = defaultTimeout)
+        {
+            int startTime = _stopwatch.Start;
+            while (FindAll(by).Count == 0)
+            {
+                if (_stopwatch.ElapsedMilliseconds > timeout)
+                {
+                    Assert.Fail(string.Format("Could not find element '{0}' after {1} seconds!",
+                        by.ToString(), timeout / 1000));
+                }
+            }
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+        }
+
+        /// <summary>
+        /// Pauses play until the page is on the given URL.
+        /// <para>@param url - the url of the page to wait for</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the url</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        protected void WaitForUrl(string url, int timeout = defaultTimeout)
+        {
+            int startTime = _stopwatch.Start;
+            while (GetUrl() != url)
+            {
+                if (_stopwatch.ElapsedMilliseconds > timeout)
+                {
+                    Assert.Fail(string.Format("Was not on url '{0}' after {1} seconds!",
+                        url, timeout / 1000));
+                }
+            }
+            _stopwatch.Stop();
+            _stopwatch.Reset();
         }
     }
 }
