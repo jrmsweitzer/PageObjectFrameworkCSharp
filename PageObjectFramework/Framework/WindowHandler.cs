@@ -44,7 +44,7 @@ namespace PageObjectFramework.Framework
                 if(!_windowHandles.ContainsValue(Driver.CurrentWindowHandle))
                 {
                     _windowHandles.Add(handleName, Driver.CurrentWindowHandle);
-                    currentWindowHandleCount += 1;
+                    currentWindowHandleCount++;
                 }
             }
         }
@@ -69,23 +69,13 @@ namespace PageObjectFramework.Framework
             {
                 Assert.Fail(string.Format(
                     "You must call this method before opening other windows! There are currently {0} window handles!",
-                    Driver.WindowHandles.Count));
+                    GetWindowHandleCount()));
             }
 
             _windowHandles.Add(MainWindowHandle, Driver.CurrentWindowHandle);
             currentWindowHandleCount = 1;
         }
 
-        /** SwitchToHandle(string handleName)
-         * 
-         *  Switches control to the specified window handle.
-         *  
-         *  
-         *  
-         * @param handleName - the name of the window handle; Can be anything you like.
-         * 
-         * @returns void 
-         */
         /// <summary>
         /// Switches control to the specified window handle.
         /// Must call AddWindowHandle(handleName) to add a handle with

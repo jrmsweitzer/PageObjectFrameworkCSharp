@@ -165,12 +165,12 @@ namespace PageObjectFramework.Framework
             _driver.Navigate().GoToUrl(rootUrl);
 
             if ( "optionalTitle" != expectedTitle &&
-                !_driver.Title.Contains(expectedTitle))
+                !GetTitle().Contains(expectedTitle))
             {
                 var errMsg = String.Format(
-                    "PageObjectBase: We're not on the expected page! " + 
-                    "Expected: {0}; Actual: {1}", 
-                    expectedTitle, _driver.Title);
+                    "PageObject: We're not on the expected page! " + 
+                    "Expected: {0}; Actual: {1}",
+                    expectedTitle, GetTitle());
                 Assert.Fail(errMsg);
             }
         }
@@ -201,15 +201,23 @@ namespace PageObjectFramework.Framework
                 _logger.LogMessage(string.Format("   at: {0}", by));
             }
             var select = new SelectElement(Find(by));
-            if (null != select)
+            if (select.Equals(null))
             {
-                select.SelectByText(optionText);
+                try
+                {
+                    select.SelectByText(optionText);
+                }
+                catch
+                {
+                    var errMsg = String.Format(
+                        "PageObjectBase: There is no option '{0}' in {1}.",
+                        optionText, by);
+                    Assert.Fail(errMsg);
+                }
             }
             else
             {
-                var errMsg = String.Format(
-                    "PageObjectBase: There is no option '{0}' in {1}.",
-                    optionText, by);
+                string errMsg = "Cannot find element " + by.ToString();
                 throw new OpenQA.Selenium.ElementNotVisibleException(errMsg);
             }
         }

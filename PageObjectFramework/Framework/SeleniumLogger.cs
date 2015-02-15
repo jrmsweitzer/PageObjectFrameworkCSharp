@@ -87,11 +87,7 @@ namespace PageObjectFramework.Framework
 
         private void WriteStartMessage(DateTime datetime)
         {
-            using (var outfile = new StreamWriter(_logFilePath))
-            {
-                outfile.WriteLine(
-                    datetime.ToString("HH:mm:ss") + " ------ Starting Log...");
-            }
+            Log("Starting Log...", Message);
         }
 
         private void Log(string message, string level)
@@ -100,13 +96,8 @@ namespace PageObjectFramework.Framework
             const string msgfmt = "{0}{1}- {2}";
             var datetime = DateTime.Now;
 
-            using (var sr = new StreamReader(_logFilePath))
+            using (var outfile = new StreamWriter(_logFilePath, true))
             {
-                log = sr.ReadToEnd();
-            }
-            using (var outfile = new StreamWriter(_logFilePath))
-            {
-                outfile.Write(log);
                 outfile.WriteLine(msgfmt, 
                     datetime.ToString("HH:mm:ss"), level, message);
             }

@@ -17,7 +17,7 @@ namespace PageObjectFramework.Models
         public const string Dropdown = "Dropdown";
         public const string FormAuthentication = "Form Authentication";
 
-        private static readonly ByFormatter _linkByText = ByFormatter.LinkText("{0}")
+        private static readonly ByFormatter _linkByText = ByFormatter.LinkText("{0}");
 
         /// <summary>
         /// Clicks link defined by the linkText

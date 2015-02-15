@@ -10,7 +10,8 @@ namespace PageObjectFramework.Framework
     public class SeleniumDriver
     {
         private static IWebDriver _driver;
-        private static string _driverDirectory = @"../../Drivers";
+        private static string _driverDirectory = ConfigurationManager.AppSettings["driverDirectory"];
+        //private static string _driverDirectory = @"../../Drivers";
         
         public static IWebDriver Driver
         {
@@ -19,37 +20,20 @@ namespace PageObjectFramework.Framework
                 if (_driver == null)
                 {
                     string driverConfig = ConfigurationManager.AppSettings["browser"];
-                    if (!string.IsNullOrEmpty(driverConfig))
+                    switch (driverConfig)
                     {
-                        switch (driverConfig)
-                        {
-                            case "Chrome":
-                                _driver = new ChromeDriver(_driverDirectory);
-                                ConfigureDriver();
-                                break;
-                            case "Firefox":
-                                _driver = new FirefoxDriver();
-                                ConfigureDriver();
-                                break;
-                            case "IE":
-                                _driver = new InternetExplorerDriver(_driverDirectory);
-                                ConfigureDriver();
-                                break;
-                            default:
-                                Console.WriteLine("App.config key error.");
-                                Console.WriteLine("Defaulting to Firefox");
-                                _driver = new FirefoxDriver();
-                                ConfigureDriver();
-                                break;
-                        }
+                        case "Chrome":
+                            _driver = new ChromeDriver(_driverDirectory);
+                            break;
+                        case "IE":
+                            _driver = new InternetExplorerDriver(_driverDirectory);
+                            break;
+                        case "Firefox":
+                        default:
+                            _driver = new FirefoxDriver();
+                            break;
                     }
-                    else
-                    {
-                        Console.WriteLine("* * * * DEFAULTMODE * * * *");
-                        Console.WriteLine("App.config key not present.");
-                        _driver = new FirefoxDriver();
-                        ConfigureDriver();
-                    }
+                    ConfigureDriver();
                 }
                 return _driver;
             }
