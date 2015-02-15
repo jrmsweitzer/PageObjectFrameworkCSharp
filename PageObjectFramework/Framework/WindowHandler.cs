@@ -91,16 +91,7 @@ namespace PageObjectFramework.Framework
                     handleName));
             }
 
-            int windowCount = GetWindowHandleCount();
-
-            for (int i = 0; i < windowCount; i++)
-            {
-                Driver.SwitchTo().Window(Driver.WindowHandles[i]);
-                if (Driver.CurrentWindowHandle == _windowHandles[handleName])
-                {
-                    break;
-                }
-            }
+            Driver.SwitchTo().Window(_windowHandles[handleName]);
         }
     }
 }
