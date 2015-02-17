@@ -43,10 +43,10 @@ namespace PageObjectFramework.Framework
          * _logger, or just simply return _logger if it has already been
          * constructed. 
          * 
-         * In this modified version of the Singleton Desing Pattern, we have a
+         * In this modified version of the Singleton Design Pattern, we have a
          * private static List<Logger>, and when GetLogger() is called, it 
          * checks that list to see if it's already created, before returning it,
-         * creating it if neccessary.
+         * creating it if necessary.
          */
         public static SeleniumLogger GetLogger(string descriptiveLogName)
         {
@@ -92,7 +92,6 @@ namespace PageObjectFramework.Framework
 
         private void Log(string message, string level)
         {
-            string log;
             const string msgfmt = "{0}{1}- {2}";
             var datetime = DateTime.Now;
 

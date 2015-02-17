@@ -79,11 +79,6 @@ namespace PageObjectFramework.Framework
         protected void ClearAndSendKeys(By by, string value)
         {
             Clear(by);
-            if (_logActions)
-            {
-                _logger.LogMessage(string.Format("SndKy: {0}", value));
-                _logger.LogMessage(string.Format("   to: {0}", by));
-            }
             Find(by).SendKeys(value);
         }
 
@@ -293,6 +288,38 @@ namespace PageObjectFramework.Framework
         {
             // Overloaded
             WaitForElementToExist(by, _defaultTimeout);
+        }
+
+        /// <summary>
+        /// Pauses play until the current Url contains partialUrl string.
+        /// <para>@param partialUrl - the partial url of the page to wait for</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the url</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        protected void WaitForPartialUrl(string partialUrl, int timeout)
+        {
+            _stopwatch.Start();
+            while (!GetUrl().Contains(partialUrl))
+            {
+                if (_stopwatch.ElapsedMilliseconds > timeout)
+                {
+                    Assert.Fail(string.Format("Url did not contain string '{0}' after {1} seconds!",
+                        partialUrl, timeout / 1000));
+                }
+            }
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+        }
+
+        /// <summary>
+        /// Pauses play until the current Url contains partialUrl string.
+        /// <para>@param partialUrl - the partial url of the page to wait for</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the url</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        protected void WaitForPartialUrl(string partialUrl)
+        {
+            WaitForPartialUrl(partialUrl, _defaultTimeout);
         }
 
         /// <summary>

@@ -22,7 +22,6 @@ namespace PageObjectFramework.Models
         private static readonly By _btnNewEmail = By.XPath("//a[.='New']");
         private static readonly By _inputTo = By.Id("divTo");
         private static readonly By _inputSubject = By.Id("txtSubj");
-        private static readonly By _inputMessage = By.Id("txtBdy");
         private static readonly By _ifrMessage = By.Id("ifBdy");
         private static readonly By _bodyMessage = By.XPath("//style[@id='owaTempEditStyle']/../../body");
         private static readonly By _btnSend = By.Id("send");
