@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -47,6 +46,7 @@ namespace PageObjectFramework.Framework
         {
             _driver = driver;
             _windowHandler = new WindowHandler(_driver);
+            _stopwatch = new Stopwatch();
 
             if (_logActions)
             {
@@ -79,7 +79,7 @@ namespace PageObjectFramework.Framework
         protected void ClearAndSendKeys(By by, string value)
         {
             Clear(by);
-            Find(by).SendKeys(value);
+            SendKeys(by, value);
         }
 
         /// <summary>Click the element at the given selector.
@@ -91,9 +91,7 @@ namespace PageObjectFramework.Framework
             {
                 _logger.LogMessage(string.Format("Click: {0}", by));
             }
-            var element = Find(by);
-            var actions = new Actions(_driver);
-            actions.MoveToElement(element).Click().Perform();
+            Find(by).Click();
         }
 
         /// <summary>Finds the element by the given selector
@@ -101,6 +99,10 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected IWebElement Find(By by)
         {
+            if (_driver.FindElements(by).Count == 0)
+            {
+                Assert.Fail("Could not find element " + by.ToString());
+            }
             return _driver.FindElement(by);
         }
 
@@ -335,8 +337,10 @@ namespace PageObjectFramework.Framework
             {
                 if (_stopwatch.ElapsedMilliseconds > timeout)
                 {
-                    Assert.Fail(string.Format("Was not on url '{0}' after {1} seconds!",
-                        url, timeout / 1000));
+                    Assert.Fail(string.Format("Was not on url '{0}' after {1} seconds!\nCurrent url: {2}",
+                        url, 
+                        timeout / 1000,
+                        GetUrl()));
                 }
             }
             _stopwatch.Stop();

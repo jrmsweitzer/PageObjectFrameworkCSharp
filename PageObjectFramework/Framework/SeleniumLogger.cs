@@ -16,6 +16,7 @@ namespace PageObjectFramework.Framework
         protected const string Pass = " PASS ";
         protected const string Fail = " FAIL ";
         protected const string Time = " TIME ";
+        protected const string Browser = " BRWSR";
         protected const string Message = " -----";
         protected const string DashedLine = "-------------------------------------------------";
         #endregion
@@ -88,6 +89,7 @@ namespace PageObjectFramework.Framework
         private void WriteStartMessage(DateTime datetime)
         {
             Log("Starting Log...", Message);
+            LogDashedLine();
         }
 
         private void Log(string message, string level)
@@ -104,6 +106,11 @@ namespace PageObjectFramework.Framework
         #endregion
 
         #region Public Methods
+        public void LogBrowser(string browser)
+        {
+            Log(browser, Browser);
+        }
+
         public void LogDashedLine()
         {
             Log(DashedLine, Message);
@@ -121,9 +128,7 @@ namespace PageObjectFramework.Framework
 
         public void LogFinishTestSuite()
         {
-            LogDashedLine();
             Log("Finished Test Suite!", Finish);
-            LogDashedLine();
         }
 
         public void LogInfo(string infoMessage)
@@ -143,14 +148,11 @@ namespace PageObjectFramework.Framework
 
         public void LogStartTest(string testName)
         {
-            LogDashedLine();
             Log(testName + "() started!", Start);
-            LogDashedLine();
         }
 
         public void LogStartTestSuite()
         {
-            LogDashedLine();
             Log("Starting Test Suite!", Start);
         }
 

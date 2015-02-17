@@ -1,17 +1,16 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
+using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium.Safari;
 using System;
 using System.Configuration;
 
 namespace PageObjectFramework.Framework
 {
-    public class SeleniumDriver
+    public class SeleniumDriver<TWebDriver> where TWebDriver : IWebDriver, new()
     {
         private static IWebDriver _driver;
         private static string _driverDirectory = ConfigurationManager.AppSettings["driverDirectory"];
-        //private static string _driverDirectory = @"../../Drivers";
         
         public static IWebDriver Driver
         {
@@ -19,19 +18,15 @@ namespace PageObjectFramework.Framework
             {
                 if (_driver == null)
                 {
-                    string driverConfig = ConfigurationManager.AppSettings["browser"];
-                    switch (driverConfig)
+                    if (typeof(TWebDriver).Equals(typeof(FirefoxDriver)) ||
+                        typeof(TWebDriver).Equals(typeof(SafariDriver)) ||
+                        typeof(TWebDriver).Equals(typeof(PhantomJSDriver)))
                     {
-                        case "Chrome":
-                            _driver = new ChromeDriver(_driverDirectory);
-                            break;
-                        case "IE":
-                            _driver = new InternetExplorerDriver(_driverDirectory);
-                            break;
-                        case "Firefox":
-                        default:
-                            _driver = new FirefoxDriver();
-                            break;
+                        _driver = new TWebDriver();
+                    }
+                    else
+                    {
+                        _driver = Activator.CreateInstance(typeof(TWebDriver), new object[] { _driverDirectory }) as IWebDriver;
                     }
                     ConfigureDriver();
                 }

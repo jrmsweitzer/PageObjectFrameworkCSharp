@@ -7,7 +7,7 @@ using LOGGER = PageObjectFramework.Framework.SeleniumLogger;
 
 namespace PageObjectFramework.Framework
 {
-    public class PageObjectTest : SeleniumDriver
+    public class PageObjectTest<TWebDriver> : SeleniumDriver<TWebDriver> where TWebDriver : IWebDriver, new()
     {
         private string _screenshotDirectory = ConfigurationManager.AppSettings["screenshotDirectory"];
 
@@ -18,6 +18,16 @@ namespace PageObjectFramework.Framework
         private string PASS = "PASS";
         private string FAIL = "FAIL";
 
+        private bool takeScreenshotOnFail =
+            ConfigurationManager.AppSettings["takeScreenshotOnTestFail"] == "true" ?
+            true :
+            false;
+        private bool takeScreenshotOnPass =
+            ConfigurationManager.AppSettings["takeScreenshotOnTestPass"] == "true" ?
+            true :
+            false;
+
+
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
@@ -25,6 +35,8 @@ namespace PageObjectFramework.Framework
             // beginning of the test suite.
 
             LOGGER.GetLogger(LOGNAME).LogStartTestSuite();
+            var browser = Driver.GetType().ToString().Split('.')[2];
+            LOGGER.GetLogger(LOGNAME).LogBrowser(browser);
             _suiteStopwatch = Stopwatch.StartNew();
         }
 
@@ -48,12 +60,18 @@ namespace PageObjectFramework.Framework
             if (context.Result.Status == TestStatus.Passed)
             {
                 LOGGER.GetLogger(LOGNAME).LogPass(context.Test.Name);
-                TakeScreenshot(PASS);
+                if (takeScreenshotOnPass)
+                {
+                    TakeScreenshot(PASS);
+                }
             }
             else
             {
                 LOGGER.GetLogger(LOGNAME).LogFail(context.Test.Name);
-                TakeScreenshot(FAIL);
+                if (takeScreenshotOnFail)
+                {
+                    TakeScreenshot(FAIL);
+                }
             }
             _testStopwatch.Stop();
             LOGGER.GetLogger(LOGNAME).LogTime("Elapsed Time", _testStopwatch.Elapsed);
@@ -71,8 +89,6 @@ namespace PageObjectFramework.Framework
             _suiteStopwatch.Stop();
             LOGGER.GetLogger(LOGNAME).LogTime("Total Time", _suiteStopwatch.Elapsed);
             LOGGER.GetLogger(LOGNAME).LogDashedLine();
-            LOGGER.GetLogger(LOGNAME).LogDashedLine();
-            LOGGER.GetLogger(LOGNAME).LogDashedLine();
             KillChromeDrivers();
         }
 
@@ -82,7 +98,7 @@ namespace PageObjectFramework.Framework
             var ss = ((ITakesScreenshot)Driver).GetScreenshot();
             var context = TestContext.CurrentContext.Test;
 
-            var testname = context.FullName.Split('.')[2];
+            var testname = context.FullName.Split('.')[2].Split('<')[0];
             var methodname = context.Name;
             var browser = Driver.GetType().ToString().Split('.')[2];
 

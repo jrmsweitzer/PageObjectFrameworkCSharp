@@ -1,4 +1,7 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using PageObjectFramework.Framework;
 using PageObjectFramework.Models;
 using PageObjectFramework.Models.Heroku;
@@ -7,21 +10,12 @@ using System.Threading;
 
 namespace PageObjectFramework.Tests
 {
-    [TestFixture]
-    public class Presentation : PageObjectTest
+    [TestFixture(typeof(ChromeDriver))]
+    public class Presentation<TWebDriver> : PageObjectTest<TWebDriver> where TWebDriver : IWebDriver, new()
     {
-        [Test]
-        public void RunGoogleOnMultipleBrowsers()
-        {
-            Google google = new Google(Driver);
-            google.Search("Selenium");
-
-            Thread.Sleep(2000);
-        }
-
         private const string NOTSET = "NOT_SET";
 
-        //[Test]
+        [Test]
         public void MainPresentation()
         {
 
