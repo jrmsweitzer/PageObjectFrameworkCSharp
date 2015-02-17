@@ -97,6 +97,7 @@
     <Compile Include="Models\Yammer.cs" />
     <Compile Include="Models\YouTube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\MultipleBrowserTest.cs" />
     <Compile Include="Tests\Presentation.cs" />
   </ItemGroup>
   <ItemGroup>

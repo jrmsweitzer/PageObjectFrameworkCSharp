@@ -10,9 +10,18 @@ namespace PageObjectFramework.Tests
     [TestFixture]
     public class Presentation : PageObjectTest
     {
+        [Test]
+        public void RunGoogleOnMultipleBrowsers()
+        {
+            Google google = new Google(Driver);
+            google.Search("Selenium");
+
+            Thread.Sleep(2000);
+        }
+
         private const string NOTSET = "NOT_SET";
 
-        [Test]
+        //[Test]
         public void MainPresentation()
         {
 
