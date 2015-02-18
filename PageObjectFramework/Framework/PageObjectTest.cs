@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
+using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -68,6 +69,10 @@ namespace PageObjectFramework.Framework
             else
             {
                 LOGGER.GetLogger(LOGNAME).LogFail(context.Test.Name);
+
+                var browser = Driver.GetType().ToString().Split('.')[2];
+                Stacktrace.LogStackTrace(context, browser);
+
                 if (takeScreenshotOnFail)
                 {
                     TakeScreenshot(FAIL);
