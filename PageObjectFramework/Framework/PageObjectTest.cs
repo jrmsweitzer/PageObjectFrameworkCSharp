@@ -19,11 +19,11 @@ namespace PageObjectFramework.Framework
         private string PASS = "PASS";
         private string FAIL = "FAIL";
 
-        private bool takeScreenshotOnFail =
+        private bool takeScreenshotOnFail = 
             ConfigurationManager.AppSettings["takeScreenshotOnTestFail"] == "true" ?
             true :
             false;
-        private bool takeScreenshotOnPass =
+        private bool takeScreenshotOnPass = 
             ConfigurationManager.AppSettings["takeScreenshotOnTestPass"] == "true" ?
             true :
             false;
@@ -94,7 +94,7 @@ namespace PageObjectFramework.Framework
             _suiteStopwatch.Stop();
             LOGGER.GetLogger(LOGNAME).LogTime("Total Time", _suiteStopwatch.Elapsed);
             LOGGER.GetLogger(LOGNAME).LogDashedLine();
-            KillChromeDrivers();
+            KillDrivers();
         }
 
         private void TakeScreenshot(string passOrFail)
@@ -126,9 +126,16 @@ namespace PageObjectFramework.Framework
             }
         }
 
-        private void KillChromeDrivers()
+        private void KillDrivers()
         {
+            // Chrome
             foreach (var p in Process.GetProcessesByName("chromedriver"))
+            {
+                p.Kill();
+            }
+
+            // IE
+            foreach (var p in Process.GetProcessesByName("Command line server for the IE driver"))
             {
                 p.Kill();
             }
