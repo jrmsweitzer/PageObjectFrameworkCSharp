@@ -54,9 +54,9 @@ namespace PageObjectFramework.Models
             _windowHandler.SwitchToHandle("Compose Email");
 
             SendKeys(_inputTo, to);
-            Thread.Sleep(1000);
+            Sleep(1000);
             SendKeys(_inputSubject, subject);
-            Thread.Sleep(1000);
+            Sleep(1000);
 
             _driver.SwitchTo().Frame(Find(_ifrMessage));
             SendKeys(_bodyMessage, message);

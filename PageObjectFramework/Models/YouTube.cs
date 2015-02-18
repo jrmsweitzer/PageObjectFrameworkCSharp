@@ -28,7 +28,7 @@ namespace PageObjectFramework.Models
         {
             ClearAndSendKeys(_inputSearch, text);
             Click(_btnSearch);
-            Thread.Sleep(2000);
+            Sleep(2000);
             return this;
         }
 

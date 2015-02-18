@@ -23,7 +23,7 @@ namespace PageObjectFramework.Models.Heroku
         public HerokuDropdown SelectOption(string option)
         {
             SelectByText(_ddOptions, option);
-            Thread.Sleep(1000);
+            Sleep(1000);
             return this;
         }
     }

@@ -27,7 +27,7 @@ namespace PageObjectFramework.Models
         public IHerokuApp ClickLink(string linkText)
         {
             Click(_linkByText.Format(linkText));
-            Thread.Sleep(1000);
+            Sleep(1000);
             switch (linkText)
             {
                 case Checkboxes:

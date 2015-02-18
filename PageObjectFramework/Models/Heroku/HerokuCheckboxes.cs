@@ -23,7 +23,7 @@ namespace PageObjectFramework.Models.Heroku
             for (int i = 0; i < numTimes; i++)
             {
                 Click(_cbUnchecked);
-                Thread.Sleep(1000);
+                Sleep(1000);
             }
             return this;
         }
@@ -37,7 +37,7 @@ namespace PageObjectFramework.Models.Heroku
             for (int i = 0; i < numTimes; i++)
             {
                 Click(_cbChecked);
-                Thread.Sleep(1000);
+                Sleep(1000);
             }
             return this;
         }

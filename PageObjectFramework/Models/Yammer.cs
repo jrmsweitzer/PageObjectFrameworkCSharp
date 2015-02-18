@@ -51,7 +51,7 @@ namespace PageObjectFramework.Models
             SendKeys(_inputEmail, email);
             SendKeys(_inputPassword, password);
             Click(_btnLogInButton);
-            Thread.Sleep(5000);
+            Sleep(5000);
             return this;
         }
         
