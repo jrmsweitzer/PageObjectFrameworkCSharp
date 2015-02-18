@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Threading;
 
 namespace PageObjectFramework.Framework
 {
@@ -217,6 +218,14 @@ namespace PageObjectFramework.Framework
                 string errMsg = "Cannot find element " + by.ToString();
                 throw new OpenQA.Selenium.ElementNotVisibleException(errMsg);
             }
+        }
+
+        /// <summary> Suspends the current thread for a specified time.
+        /// <para>@param millisecondsTimeout - the timeout in milliseconds</para>
+        /// </summary>
+        public void Sleep(int millisecondsTimeout)
+        {
+            Thread.Sleep(millisecondsTimeout);
         }
 
         /// <summary> Submits form for the given locator.

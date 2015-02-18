@@ -9,6 +9,7 @@ namespace PageObjectFramework.Models
         {
             _url = "http://orteil.dashnet.org/cookieclicker/";
             GoTo(_url);
+            Sleep(1000);
         }
 
         private static readonly By _btnBigCookie = By.Id("bigCookie");
