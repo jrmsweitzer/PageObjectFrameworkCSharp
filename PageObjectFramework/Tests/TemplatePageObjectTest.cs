@@ -13,9 +13,9 @@ namespace PageObjectFramework.Tests
     //Place all of the browsers you want to test here:
     [TestFixture(typeof(FirefoxDriver))]
     [TestFixture(typeof(ChromeDriver))]
-    [TestFixture(typeof(InternetExplorerDriver))]
-    [TestFixture(typeof(SafariDriver))]
-    [TestFixture(typeof(PhantomJSDriver))]
+    //[TestFixture(typeof(InternetExplorerDriver))]
+    //[TestFixture(typeof(SafariDriver))]
+    //[TestFixture(typeof(PhantomJSDriver))]
     // Just replace "TemplatePageObjectTest" with the name of your test. 
     // Everything else here stays the same.
     class TemplatePageObjectTest<TWebDriver> : PageObjectTest<TWebDriver> 
@@ -23,11 +23,34 @@ namespace PageObjectFramework.Tests
     {
         // A test using the Page Objects.
         [Test]
-        public void TemplateTestForAllFiveBrowsers()
+        public void TestA()
         {
             Google google = new Google(Driver);
             google.EnterSearchText("Test Search")
                 .Search();
+        }
+
+        // A test using the Page Objects.
+        [Test]
+        public void TestB()
+        {
+            Google google = new Google(Driver);
+            google.EnterSearchText("Test Search")
+                .Search();
+        }
+
+        // A test using the Page Objects.
+        [Test]
+        public void TestC()
+        {
+            Assert.IsTrue(false);
+        }
+
+        // A test using the Page Objects.
+        [Test]
+        public void TestD()
+        {
+            Assert.Fail("This is a custom Failure message!");
         }
     }
 }

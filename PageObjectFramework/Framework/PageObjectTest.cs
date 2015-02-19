@@ -16,6 +16,7 @@ namespace PageObjectFramework.Framework
         private Stopwatch _testStopwatch;
 
         private string LOGNAME = ConfigurationManager.AppSettings["seleniumLogName"];
+        private string _stacktraceDir = ConfigurationManager.AppSettings["stacktraceDirectory"];
         private string PASS = "PASS";
         private string FAIL = "FAIL";
 
@@ -23,8 +24,12 @@ namespace PageObjectFramework.Framework
             ConfigurationManager.AppSettings["takeScreenshotOnTestFail"] == "true" ?
             true :
             false;
-        private bool takeScreenshotOnPass = 
+        private bool takeScreenshotOnPass =
             ConfigurationManager.AppSettings["takeScreenshotOnTestPass"] == "true" ?
+            true :
+            false;
+        private bool logStackTrace =
+            ConfigurationManager.AppSettings["logStackTrace"] == "true" ?
             true :
             false;
 
@@ -58,24 +63,39 @@ namespace PageObjectFramework.Framework
             // This is where you would put anything that needs to be run at
             // the end of each individual test.
             var context = TestContext.CurrentContext;
+            var testname = context.Test.FullName.Split('.')[2].Split('<')[0];
+            var methodname = context.Test.Name;
+            var browser = Driver.GetType().ToString().Split('.')[2];
+
             if (context.Result.Status == TestStatus.Passed)
             {
                 LOGGER.GetLogger(LOGNAME).LogPass(context.Test.Name);
                 if (takeScreenshotOnPass)
                 {
-                    TakeScreenshot(PASS);
+                    TakeScreenshot(PASS, testname, methodname, browser);
                 }
             }
             else
             {
                 LOGGER.GetLogger(LOGNAME).LogFail(context.Test.Name);
 
-                var browser = Driver.GetType().ToString().Split('.')[2];
-                Stacktrace.LogStackTrace(context, browser);
+                if (logStackTrace)
+                {
+                    Stacktrace.AddContext(context);
+                    Stacktrace.AddBrowser(browser);
+
+                    var _stackFilePath = string.Format("{0}{1}.cs__{2}()__{3}__StackTrace.txt",
+                        _stacktraceDir,
+                        testname,
+                        methodname,
+                        browser);
+
+                    LOGGER.GetLogger(LOGNAME).LogInfo(string.Format("Stacktrace file saved at {0}", _stackFilePath));
+                }
 
                 if (takeScreenshotOnFail)
                 {
-                    TakeScreenshot(FAIL);
+                    TakeScreenshot(FAIL, testname, methodname, browser);
                 }
             }
             _testStopwatch.Stop();
@@ -97,15 +117,11 @@ namespace PageObjectFramework.Framework
             KillDrivers();
         }
 
-        private void TakeScreenshot(string passOrFail)
+        private void TakeScreenshot(string passOrFail, string testname, string methodname, string browser)
         {
             CreateScreenshotDirectory();
             var ss = ((ITakesScreenshot)Driver).GetScreenshot();
             var context = TestContext.CurrentContext.Test;
-
-            var testname = context.FullName.Split('.')[2].Split('<')[0];
-            var methodname = context.Name;
-            var browser = Driver.GetType().ToString().Split('.')[2];
 
             var sslocation = string.Format(@"{0}{1}-{2}.cs__{3}()__{4}.png",
                     _screenshotDirectory,
