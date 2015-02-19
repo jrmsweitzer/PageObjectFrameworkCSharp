@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 
 namespace PageObjectFramework.Framework
@@ -26,7 +25,7 @@ namespace PageObjectFramework.Framework
         private string _logFilePath;
 
         // The Directory of the log files.
-        private string _logDir = ConfigurationManager.AppSettings["logDirectory"];
+        private string _logDir = SeleniumSettings.LogDirectory;
 
         /** SeleniumLogger GetLogger(string descriptiveLogName)
          * 

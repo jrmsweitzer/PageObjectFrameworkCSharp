@@ -1,13 +1,7 @@
 ﻿using NUnit.Core;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PageObjectFramework.Framework
 {
@@ -23,7 +17,7 @@ namespace PageObjectFramework.Framework
     // stack trace given on the failure (from TestContext).
     public class Stacktrace
     {
-        private static string _stacktraceDir = ConfigurationManager.AppSettings["stacktraceDirectory"];
+        private static string _stacktraceDir = SeleniumSettings.StacktraceDirectory;
 
         private static Stacktrace _stackTrace;
         private static TestContext _context;

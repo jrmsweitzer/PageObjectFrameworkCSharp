@@ -84,6 +84,7 @@
     <Compile Include="Framework\SeleniumDriver.cs" />
     <Compile Include="Framework\PageObjectTest.cs" />
     <Compile Include="Framework\SeleniumLogger.cs" />
+    <Compile Include="Framework\SeleniumSettings.cs" />
     <Compile Include="Framework\Stacktrace.cs" />
     <Compile Include="Framework\WindowHandler.cs" />
     <Compile Include="Models\CookieClicker.cs" />

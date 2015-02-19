@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 
@@ -29,12 +28,10 @@ namespace PageObjectFramework.Framework
         protected string _title { get; set; }
 
         // Config stuff
-        private bool _logActions = 
-            ConfigurationManager.AppSettings["logAllActions"] == "true" ? 
-            true : 
-            false;
-        private int _defaultTimeout = Int32.Parse(ConfigurationManager.AppSettings["defaultTimeout"]) * 1000;
-        private string _actionLog = ConfigurationManager.AppSettings["actionlogName"];
+        private string _actionLog = SeleniumSettings.ActionLogName;
+        private bool _logActions = SeleniumSettings.LogAllActions;
+
+        private int _defaultTimeout = SeleniumSettings.DefaultTimeout * 1000;
 
         private SeleniumLogger _logger;
         private Stopwatch _stopwatch;

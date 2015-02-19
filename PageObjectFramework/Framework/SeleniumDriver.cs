@@ -3,14 +3,13 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Safari;
 using System;
-using System.Configuration;
 
 namespace PageObjectFramework.Framework
 {
     public class SeleniumDriver<TWebDriver> where TWebDriver : IWebDriver, new()
     {
         private static IWebDriver _driver;
-        private static string _driverDirectory = ConfigurationManager.AppSettings["driverDirectory"];
+        private static string _driverDirectory = SeleniumSettings.DriverDirectory;
         
         public static IWebDriver Driver
         {
@@ -47,14 +46,10 @@ namespace PageObjectFramework.Framework
 
         private static void SetTimeout()
         {
-            string strtimeout = ConfigurationManager.AppSettings["defaultTimeout"];
-            int timeout;
-            if (Int32.TryParse(strtimeout, out timeout))
+            int timeout = SeleniumSettings.DefaultTimeout;
+            if (timeout != 0)
             {
-                if (timeout != 0)
-                {
-                    _driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, timeout));
-                }
+                _driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, timeout));
             }
             else
             {
