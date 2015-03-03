@@ -79,6 +79,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Framework\ByFormatter.cs" />
+    <Compile Include="Framework\Exceptions\InvalidSelectOptionException.cs" />
+    <Compile Include="Framework\Exceptions\WrongPageException.cs" />
     <Compile Include="Framework\NUnitExtension.cs" />
     <Compile Include="Framework\PageObject.cs" />
     <Compile Include="Framework\SeleniumDriver.cs" />
@@ -100,11 +102,15 @@
     <Compile Include="Models\Yammer.cs" />
     <Compile Include="Models\YouTube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\ExceptionTests.cs" />
+    <Compile Include="Tests\GridTest.cs" />
     <Compile Include="Tests\Presentation.cs" />
     <Compile Include="Tests\TemplatePageObjectTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\XPathCheatSheet.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>

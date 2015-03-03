@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using PageObjectFramework.Framework.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,7 +35,6 @@ namespace PageObjectFramework.Framework
         private int _defaultTimeout = SeleniumSettings.DefaultTimeout * 1000;
 
         private SeleniumLogger _logger;
-        private Stopwatch _stopwatch;
         protected WindowHandler _windowHandler;
 
         /**
@@ -44,7 +44,6 @@ namespace PageObjectFramework.Framework
         {
             _driver = driver;
             _windowHandler = new WindowHandler(_driver);
-            _stopwatch = new Stopwatch();
 
             if (_logActions)
             {
@@ -83,7 +82,7 @@ namespace PageObjectFramework.Framework
         /// <summary>Click the element at the given selector.
         /// <para> @param by - the by selector for the given element</para>
         /// </summary>
-        protected void Click(By by)
+        internal void Click(By by)
         {
             if (_logActions)
             {
@@ -97,10 +96,18 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected IWebElement Find(By by)
         {
-            if (_driver.FindElements(by).Count == 0)
+            var _stopwatch = new Stopwatch();
+            _stopwatch.Start();
+            while (_driver.FindElements(by).Count == 0)
             {
-                Assert.Fail("Could not find element " + by.ToString());
+                if (_stopwatch.ElapsedMilliseconds > _defaultTimeout)
+                {
+                    throw new NoSuchElementException("Could not find element " + by.ToString());
+                }
             }
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+
             return _driver.FindElement(by);
         }
 
@@ -159,14 +166,9 @@ namespace PageObjectFramework.Framework
             var rootUrl = new Uri(url);
             _driver.Navigate().GoToUrl(rootUrl);
 
-            if ( "optionalTitle" != expectedTitle &&
-                !GetTitle().Contains(expectedTitle))
+            if ("optionalTitle" != expectedTitle)
             {
-                var errMsg = String.Format(
-                    "PageObject: We're not on the expected page! " + 
-                    "Expected: {0}; Actual: {1}",
-                    expectedTitle, GetTitle());
-                Assert.Fail(errMsg);
+                WaitForTitle(expectedTitle);
             }
         }
 
@@ -188,7 +190,7 @@ namespace PageObjectFramework.Framework
         /// <para> @param by - the by selector for the given element </para>
         /// <para> @param optionText - the text to select by </para>
         /// </summary>
-        protected void SelectByText(By by, string optionText)
+        internal void SelectByText(By by, string optionText)
         {
             if (_logActions)
             {
@@ -196,7 +198,7 @@ namespace PageObjectFramework.Framework
                 _logger.LogMessage(string.Format("   at: {0}", by));
             }
             var select = new SelectElement(Find(by));
-            if (select.Equals(null))
+            if (!select.Equals(null))
             {
                 try
                 {
@@ -207,13 +209,13 @@ namespace PageObjectFramework.Framework
                     var errMsg = String.Format(
                         "PageObjectBase: There is no option '{0}' in {1}.",
                         optionText, by);
-                    Assert.Fail(errMsg);
+                    throw new InvalidSelectOptionException(errMsg);
                 }
             }
             else
             {
                 string errMsg = "Cannot find element " + by.ToString();
-                throw new OpenQA.Selenium.ElementNotVisibleException(errMsg);
+                throw new NoSuchElementException(errMsg);
             }
         }
 
@@ -241,13 +243,16 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void WaitForElementToBeDeleted(By by, int timeout)
         {
+            var _stopwatch = new Stopwatch();
             _stopwatch.Start();
             while (FindAll(by).Count > 0)
             {
                 if (_stopwatch.ElapsedMilliseconds > timeout)
                 {
-                    Assert.Fail(string.Format("Element '{0}' was still visible after {1} seconds!",
-                        by.ToString(), timeout / 1000));
+                    string errMsg = string.Format(
+                        "Element '{0}' was still visible after {1} seconds!",
+                        by.ToString(), timeout / 1000);
+                    throw new WrongPageException(errMsg);
                 }
             }
             _stopwatch.Stop();
@@ -273,13 +278,16 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void WaitForElementToExist(By by, int timeout)
         {
+            var _stopwatch = new Stopwatch();
             _stopwatch.Start();
             while (FindAll(by).Count == 0)
             {
                 if (_stopwatch.ElapsedMilliseconds > timeout)
                 {
-                    Assert.Fail(string.Format("Could not find element '{0}' after {1} seconds!",
-                        by.ToString(), timeout / 1000));
+                    var errMsg = string.Format(
+                        "Could not find element '{0}' after {1} seconds!",
+                        by.ToString(), timeout / 1000);
+                    throw new ElementNotVisibleException(errMsg);
                 }
             }
             _stopwatch.Stop();
@@ -306,13 +314,17 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void WaitForPartialUrl(string partialUrl, int timeout)
         {
+            var _stopwatch = new Stopwatch();
             _stopwatch.Start();
             while (!GetUrl().Contains(partialUrl))
             {
                 if (_stopwatch.ElapsedMilliseconds > timeout)
                 {
-                    Assert.Fail(string.Format("Url did not contain string '{0}' after {1} seconds!",
-                        partialUrl, timeout / 1000));
+                    var errMsg = string.Format(
+                        "Url did not contain string '{0}' after {1} seconds!",
+                        partialUrl, timeout / 1000);
+
+                    throw new WrongPageException(errMsg);
                 }
             }
             _stopwatch.Stop();
@@ -331,6 +343,54 @@ namespace PageObjectFramework.Framework
         }
 
         /// <summary>
+        /// Pauses play until the current Title contains expectedTitle string.
+        /// <para>@param expectedTitle - the expected title of the page to wait for</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the title</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        private void WaitForTitle(string expectedTitle, int timeout)
+        {
+            var _stopwatch = new Stopwatch();
+            _stopwatch.Start();
+            while (!GetTitle().Contains(expectedTitle))
+            {
+                if (_stopwatch.ElapsedMilliseconds > timeout)
+                {
+                    var errMsg = String.Format(
+                        "We're not on the expected page! " +
+                        "Expected Title: {0}; Actual Title: {1}",
+                        expectedTitle, GetTitle());
+                    throw new WrongPageException(errMsg);
+                }
+            }
+            _stopwatch.Stop();
+            _stopwatch.Reset();
+
+
+
+            if ("optionalTitle" != expectedTitle &&
+                !GetTitle().Contains(expectedTitle))
+            {
+                var errMsg = String.Format(
+                    "PageObject: We're not on the expected page! " +
+                    "Expected: {0}; Actual: {1}",
+                    expectedTitle, GetTitle());
+                throw new WrongPageException(errMsg);
+            }
+        }
+
+        /// <summary>
+        /// Pauses play until the current Title contains expectedTitle string.
+        /// <para>@param expectedTitle - the expected title of the page to wait for</para>
+        /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the title</para>
+        /// <para>If no time is given for the timeout, will use the default timeout.</para>
+        /// </summary>
+        private void WaitForTitle(string expectedTitle)
+        {
+            WaitForTitle(expectedTitle, _defaultTimeout);
+        }
+
+        /// <summary>
         /// Pauses play until the page is on the given URL.
         /// <para>@param url - the url of the page to wait for</para>
         /// <para>@param timeout (optional) - the time, in milliseconds, to wait for the url</para>
@@ -338,15 +398,18 @@ namespace PageObjectFramework.Framework
         /// </summary>
         protected void WaitForUrl(string url, int timeout)
         {
+            var _stopwatch = new Stopwatch();
             _stopwatch.Start();
             while (GetUrl() != url)
             {
                 if (_stopwatch.ElapsedMilliseconds > timeout)
                 {
-                    Assert.Fail(string.Format("Was not on url '{0}' after {1} seconds!\nCurrent url: {2}",
-                        url, 
+                    var errMsg = string.Format("Was not on url '{0}' after {1} seconds!\nCurrent url: {2}",
+                        url,
                         timeout / 1000,
-                        GetUrl()));
+                        GetUrl());
+
+                    throw new WrongPageException(errMsg);
                 }
             }
             _stopwatch.Stop();
@@ -364,5 +427,6 @@ namespace PageObjectFramework.Framework
             // Overloaded
             WaitForUrl(url, _defaultTimeout);
         }
+
     }
 }

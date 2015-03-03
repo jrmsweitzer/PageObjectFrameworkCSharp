@@ -12,10 +12,10 @@ using System.Threading;
 
 namespace PageObjectFramework.Tests
 {
-    [TestFixture(typeof(ChromeDriver))]
-    [TestFixture(typeof(FirefoxDriver))]
-    [TestFixture(typeof(InternetExplorerDriver))]
-    [TestFixture(typeof(SafariDriver))]
+    //[TestFixture(typeof(ChromeDriver))]
+    //[TestFixture(typeof(FirefoxDriver))]
+    //[TestFixture(typeof(InternetExplorerDriver))]
+    //[TestFixture(typeof(SafariDriver))]
     public class Presentation<TWebDriver> : PageObjectTest<TWebDriver> where TWebDriver : IWebDriver, new()
     {
         private const string NOTSET = "NOT_SET";

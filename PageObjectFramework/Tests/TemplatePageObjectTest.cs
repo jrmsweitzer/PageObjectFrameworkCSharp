@@ -23,7 +23,7 @@ namespace PageObjectFramework.Tests
     {
         // A test using the Page Objects.
         [Test]
-        public void TestA()
+        public void LoggingTest1ShouldPass()
         {
             Google google = new Google(Driver);
             google.EnterSearchText("Test Search")
@@ -32,23 +32,14 @@ namespace PageObjectFramework.Tests
 
         // A test using the Page Objects.
         [Test]
-        public void TestB()
-        {
-            Google google = new Google(Driver);
-            google.EnterSearchText("Test Search")
-                .Search();
-        }
-
-        // A test using the Page Objects.
-        [Test]
-        public void TestC()
+        public void LoggingTest2ShouldFail()
         {
             Assert.IsTrue(false);
         }
 
         // A test using the Page Objects.
         [Test]
-        public void TestD()
+        public void LoggingTest3CustomFailMessage()
         {
             Assert.Fail("This is a custom Failure message!");
         }

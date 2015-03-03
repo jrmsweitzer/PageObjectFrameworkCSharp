@@ -7,10 +7,18 @@ namespace PageObjectFramework.Models
 {
     public class HerokuMain : PageObject, IHerokuApp
     {
-        public HerokuMain(IWebDriver driver) : base(driver)
+        public HerokuMain(IWebDriver driver)
+            : base(driver)
         {
             _url = "http://the-internet.herokuapp.com/";
             GoTo(_url, "The Internet");
+        }
+
+        public HerokuMain(IWebDriver driver, string title)
+            : base(driver)
+        {
+            _url = "http://the-internet.herokuapp.com/";
+            GoTo(_url, title);
         }
 
         public const string Checkboxes = "Checkboxes";
