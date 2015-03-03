@@ -1,15 +1,21 @@
 ﻿using OpenQA.Selenium;
 using PageObjectFramework.Framework;
+using Logger = PageObjectFramework.Framework.SeleniumLogger;
 
 namespace PageObjectFramework.Models
 {
     public class Google : PageObject
     {
+        private Logger _logger;
+
         public Google(IWebDriver driver)
             : base(driver)
         {
             _url = "http://www.google.com";
             GoTo(_url, "Google");
+
+            _logger = Logger.GetLogger("Google");
+            _logger.LogMessage("Making new Google PageObject.");
         }
 
         private static readonly By _inputSearch = By.Name("q");
@@ -23,21 +29,25 @@ namespace PageObjectFramework.Models
         public Google AppendSearchText(string text)
         {
             SendKeys(_inputSearch, text);
+            _logger.LogMessage(string.Format("Appending text '{0}' to google search bar.", text));
             return this;
         }
         public Google EnterSearchText(string text)
         {
             ClearAndSendKeys(_inputSearch, text);
+            _logger.LogMessage(string.Format("Clearing and entering text '{0}' to google search bar.", text));
             return this;
         }
         public Google Search()
         {
             Click(_btnSearch);
+            _logger.LogMessage("Clicking Search.");
             return this;
         }
         public Google ReturnToGoogle()
         {
             GoTo(_url, "Google");
+            _logger.LogMessage("Returning control of driver to google");
             return new Google(_driver);
         }
     }

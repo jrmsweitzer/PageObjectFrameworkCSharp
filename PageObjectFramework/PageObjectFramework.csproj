@@ -103,6 +103,7 @@
     <Compile Include="Models\YouTube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\ExceptionTests.cs" />
+    <Compile Include="Tests\GoogleLogTest.cs" />
     <Compile Include="Tests\GridTest.cs" />
     <Compile Include="Tests\Presentation.cs" />
     <Compile Include="Tests\TemplatePageObjectTest.cs" />
