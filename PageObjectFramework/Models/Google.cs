@@ -1,12 +1,11 @@
 ﻿using OpenQA.Selenium;
 using PageObjectFramework.Framework;
-using Logger = PageObjectFramework.Framework.SeleniumLogger;
 
 namespace PageObjectFramework.Models
 {
     public class Google : PageObject
     {
-        private Logger _logger;
+        private SeleniumLogger _logger;
 
         public Google(IWebDriver driver)
             : base(driver)
@@ -14,7 +13,7 @@ namespace PageObjectFramework.Models
             _url = "http://www.google.com";
             GoTo(_url, "Google");
 
-            _logger = Logger.GetLogger("Google");
+            _logger = SeleniumLogger.GetLogger("Google");
             _logger.LogMessage("Making new Google PageObject.");
         }
 

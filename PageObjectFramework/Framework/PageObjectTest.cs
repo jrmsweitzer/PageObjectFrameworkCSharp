@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using System.Diagnostics;
 using System.IO;
-using LOGGER = PageObjectFramework.Framework.SeleniumLogger;
 
 namespace PageObjectFramework.Framework
 {
@@ -14,7 +13,7 @@ namespace PageObjectFramework.Framework
         private string PASS = "PASS";
         private string FAIL = "FAIL";
 
-        private string _logName = SeleniumSettings.SeleniumLogName;
+        private static string _logName = SeleniumSettings.SeleniumLogName;
 
         private bool _takeScreenshotOnFail = SeleniumSettings.TakeScreenshotOnTestFail;
         private bool _takeScreenshotOnPass = SeleniumSettings.TakeScreenshotOnTestPass;
@@ -23,15 +22,17 @@ namespace PageObjectFramework.Framework
         private bool _logStackTrace = SeleniumSettings.LogStackTrace;
         private string _stacktraceDir = SeleniumSettings.StacktraceDirectory;
 
+        private static SeleniumLogger _logger = SeleniumLogger.GetLogger(_logName);
+
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
             // This is where you put anything that needs to be run at the 
             // beginning of the test suite.
 
-            LOGGER.GetLogger(_logName).LogStartTestSuite();
+            _logger.LogStartTestSuite();
             var browser = Driver.GetType().ToString().Split('.')[2];
-            LOGGER.GetLogger(_logName).LogBrowser(browser);
+            _logger.LogBrowser(browser);
             _suiteStopwatch = Stopwatch.StartNew();
         }
 
@@ -41,7 +42,7 @@ namespace PageObjectFramework.Framework
             // This is where you would put anything that needs to be run at 
             // the beginning of each individual test
 
-            LOGGER.GetLogger(_logName).LogStartTest(
+            _logger.LogStartTest(
                 TestContext.CurrentContext.Test.Name);
             _testStopwatch = Stopwatch.StartNew();
         }
@@ -58,7 +59,7 @@ namespace PageObjectFramework.Framework
 
             if (context.Result.Status == TestStatus.Passed)
             {
-                LOGGER.GetLogger(_logName).LogPass(context.Test.Name);
+                _logger.LogPass(context.Test.Name);
                 if (_takeScreenshotOnPass)
                 {
                     TakeScreenshot(PASS, testname, methodname, browser);
@@ -66,7 +67,7 @@ namespace PageObjectFramework.Framework
             }
             else
             {
-                LOGGER.GetLogger(_logName).LogFail(context.Test.Name);
+                _logger.LogFail(context.Test.Name);
 
                 if (_logStackTrace)
                 {
@@ -79,7 +80,7 @@ namespace PageObjectFramework.Framework
                         methodname,
                         browser);
 
-                    LOGGER.GetLogger(_logName).LogInfo(string.Format("Stacktrace file saved at {0}", _stackFilePath));
+                    _logger.LogInfo(string.Format("Stacktrace file saved at {0}", _stackFilePath));
                 }
 
                 if (_takeScreenshotOnFail)
@@ -88,7 +89,7 @@ namespace PageObjectFramework.Framework
                 }
             }
             _testStopwatch.Stop();
-            LOGGER.GetLogger(_logName).LogTime("Elapsed Time", _testStopwatch.Elapsed);
+            _logger.LogTime("Elapsed Time", _testStopwatch.Elapsed);
             Driver.Manage().Cookies.DeleteAllCookies();
             Driver.Quit();
             Driver = null;
@@ -99,10 +100,10 @@ namespace PageObjectFramework.Framework
         {
             // This is where you put anything that needs to be run at the 
             // end of the test suite.
-            LOGGER.GetLogger(_logName).LogFinishTestSuite();
+            _logger.LogFinishTestSuite();
             _suiteStopwatch.Stop();
-            LOGGER.GetLogger(_logName).LogTime("Total Time", _suiteStopwatch.Elapsed);
-            LOGGER.GetLogger(_logName).LogDashedLine();
+            _logger.LogTime("Total Time", _suiteStopwatch.Elapsed);
+            _logger.LogDashedLine();
             KillDrivers();
         }
 
@@ -120,7 +121,7 @@ namespace PageObjectFramework.Framework
                     browser);
 
             ss.SaveAsFile(sslocation, System.Drawing.Imaging.ImageFormat.Png);
-            LOGGER.GetLogger(_logName).LogInfo(string.Format("Screenshot saved at {0}", sslocation));
+            _logger.LogInfo(string.Format("Screenshot saved at {0}", sslocation));
         }
 
         private void CreateScreenshotDirectory()
