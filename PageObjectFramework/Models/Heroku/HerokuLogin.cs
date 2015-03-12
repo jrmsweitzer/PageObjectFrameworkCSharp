@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using PageObjectFramework.Framework;
 
 namespace PageObjectFramework.Models.Heroku
@@ -6,6 +7,12 @@ namespace PageObjectFramework.Models.Heroku
     public class HerokuLogin : PageObject, IHerokuApp
     {
         public HerokuLogin(IWebDriver driver) : base(driver)
+        {
+            _url = "http://the-internet.herokuapp.com/login";
+            GoTo(_url);
+        }
+
+        public HerokuLogin() : base(new ChromeDriver(SeleniumSettings.DriverDirectory))
         {
             _url = "http://the-internet.herokuapp.com/login";
             GoTo(_url);
@@ -48,8 +55,6 @@ namespace PageObjectFramework.Models.Heroku
         /// </summary>
         public HerokuLogin Login()
         {
-            WriteInUsernameTextBox("tomsmith");
-            SendKeys(_inputPassword, "SuperSecretPassword!");
             Click(_btnLogin);
             return this;
         }
@@ -72,6 +77,13 @@ namespace PageObjectFramework.Models.Heroku
         {
             Clear(_inputUsername);
             SendKeys(_inputUsername, text);
+            return this;
+        }
+
+        public HerokuLogin WriteInPasswordTextBox(string text)
+        {
+            Clear(_inputPassword);
+            SendKeys(_inputPassword, text);
             return this;
         }
     }

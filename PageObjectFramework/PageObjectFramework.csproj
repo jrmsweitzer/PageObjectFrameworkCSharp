@@ -58,9 +58,8 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Speech" />
-    <Reference Include="ThoughtWorks.Selenium.Core, Version=0.0.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Resources\ThoughtWorks.Selenium.Core.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.2.44.0\lib\net40\WebDriver.dll</HintPath>
@@ -75,11 +74,7 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
     <Compile Include="Framework\ByFormatter.cs" />
@@ -87,6 +82,7 @@
     <Compile Include="Framework\Exceptions\WrongPageException.cs" />
     <Compile Include="Framework\NUnitExtension.cs" />
     <Compile Include="Framework\PageObject.cs" />
+    <Compile Include="Framework\ScenarioRunner.cs" />
     <Compile Include="Framework\SeleniumDriver.cs" />
     <Compile Include="Framework\PageObjectTest.cs" />
     <Compile Include="Framework\SeleniumLogger.cs" />
@@ -106,9 +102,15 @@
     <Compile Include="Models\Yammer.cs" />
     <Compile Include="Models\YouTube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecFlow\HerokuLogin.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HerokuLogin.feature</DependentUpon>
+    </Compile>
+    <Compile Include="SpecFlow\HerokuLoginSteps.cs" />
+    <Compile Include="Tests\CucumberTest.cs" />
     <Compile Include="Tests\ExceptionTests.cs" />
     <Compile Include="Tests\GoogleLogTest.cs" />
-    <Compile Include="Tests\GridTest.cs" />
     <Compile Include="Tests\Presentation.cs" />
     <Compile Include="Tests\TemplatePageObjectTest.cs" />
   </ItemGroup>
@@ -118,6 +120,10 @@
     </None>
     <None Include="Resources\XPathCheatSheet.xlsx" />
     <None Include="packages.config" />
+    <None Include="SpecFlow\HerokuLogin.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>HerokuLogin.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

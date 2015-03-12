@@ -157,6 +157,8 @@ namespace PageObjectFramework.Tests
                 .WriteInUsernameTextBox("Now let's look at some Code!");
             herokuLogin.Sleep(5000);
             herokuLogin
+                .WriteInUsernameTextBox("tomsmith")
+                .WriteInPasswordTextBox("SuperSecretPassword!")
                 .Login();
             herokuLogin.Sleep(5000);
         }

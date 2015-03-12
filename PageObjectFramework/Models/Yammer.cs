@@ -33,8 +33,8 @@ namespace PageObjectFramework.Models
         {
             if (Find(_linkGroupByName.Format(groupName)) == null)
             {
-                Assert.Fail(string.Format("Cannot find group by name {0}."),
-                    groupName);
+                Assert.Fail(string.Format("Cannot find group by name {0}.",
+                    groupName));
             }
             Click(_linkGroupByName.Format(groupName));
             return this;
