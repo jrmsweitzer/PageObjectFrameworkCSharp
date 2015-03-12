@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PageObjectFramework.Framework.Exceptions
 {
+    [Serializable]
     public class InvalidSelectOptionException : Exception
     {
         public InvalidSelectOptionException()

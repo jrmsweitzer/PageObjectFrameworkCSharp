@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PageObjectFramework.Framework.Exceptions
 {
+    [Serializable]
     public class WrongPageException : Exception
     {
         public WrongPageException()
