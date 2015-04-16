@@ -91,6 +91,11 @@ namespace PageObjectFramework.Framework
             Find(by).Click();
         }
 
+        protected bool ElementExists(By by)
+        {
+            return FindAll(by).Count > 0 ? true : false;
+        }
+
         /// <summary>Finds the element by the given selector
         /// <para> @param by - the by selector for the given element</para>
         /// </summary>
