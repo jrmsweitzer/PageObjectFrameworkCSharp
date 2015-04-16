@@ -26,6 +26,14 @@ namespace PageObjectFramework.Framework
             }
         }
 
+        public static string Driver
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["driver"];
+            }
+        }
+
         public static string DriverDirectory
         {
             get

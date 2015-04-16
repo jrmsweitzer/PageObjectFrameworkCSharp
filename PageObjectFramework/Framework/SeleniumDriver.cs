@@ -1,15 +1,18 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
 using OpenQA.Selenium.Safari;
 using System;
 
 namespace PageObjectFramework.Framework
 {
-    public class SeleniumDriver<TWebDriver> where TWebDriver : IWebDriver, new()
+    public class SeleniumDriver
     {
         private static IWebDriver _driver;
         private static string _driverDirectory = SeleniumSettings.DriverDirectory;
+        private static string driverType = SeleniumSettings.Driver;
         
         public static IWebDriver Driver
         {
@@ -17,15 +20,27 @@ namespace PageObjectFramework.Framework
             {
                 if (_driver == null)
                 {
-                    if (typeof(TWebDriver).Equals(typeof(FirefoxDriver)) ||
-                        typeof(TWebDriver).Equals(typeof(SafariDriver)) ||
-                        typeof(TWebDriver).Equals(typeof(PhantomJSDriver)))
+                    switch(driverType.ToLower())
                     {
-                        _driver = new TWebDriver();
-                    }
-                    else
-                    {
-                        _driver = Activator.CreateInstance(typeof(TWebDriver), new object[] { _driverDirectory }) as IWebDriver;
+                        case "chrome":
+                            _driver = new ChromeDriver(_driverDirectory);
+                            break;
+                        case "ie":
+                        case "internet explorer":
+                        case "internet":
+                            _driver = new InternetExplorerDriver(_driverDirectory);
+                            break;
+                        case "safari":
+                            _driver = new SafariDriver();
+                            break;
+                        case "phantom":
+                        case "phantomjs":
+                            _driver = new PhantomJSDriver();
+                            break;
+                        case "firefox":
+                        default:
+                            _driver = new FirefoxDriver();
+                            break;
                     }
                     ConfigureDriver();
                 }

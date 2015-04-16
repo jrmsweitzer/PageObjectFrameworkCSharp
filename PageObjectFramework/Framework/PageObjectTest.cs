@@ -5,7 +5,7 @@ using System.IO;
 
 namespace PageObjectFramework.Framework
 {
-    public class PageObjectTest<TWebDriver> : SeleniumDriver<TWebDriver> where TWebDriver : IWebDriver, new()
+    public class PageObjectTest : SeleniumDriver
     {
         private Stopwatch _suiteStopwatch;
         private Stopwatch _testStopwatch;

@@ -93,24 +93,7 @@
     <Compile Include="Framework\SeleniumSettings.cs" />
     <Compile Include="Framework\Stacktrace.cs" />
     <Compile Include="Framework\WindowHandler.cs" />
-    <Compile Include="Models\CookieClicker.cs" />
-    <Compile Include="Models\Email.cs" />
-    <Compile Include="Models\Google.cs" />
-    <Compile Include="Models\Heroku\HerokuDropdown.cs" />
-    <Compile Include="Models\Heroku\HerokuLogin.cs" />
-    <Compile Include="Models\Heroku\IHerokuApp.cs" />
-    <Compile Include="Models\Heroku\HerokuCheckboxes.cs" />
-    <Compile Include="Models\Heroku\HerokuMain.cs" />
-    <Compile Include="Models\TemplateModel.cs" />
-    <Compile Include="Models\Weather.cs" />
-    <Compile Include="Models\Yammer.cs" />
-    <Compile Include="Models\YouTube.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\ExceptionTests.cs" />
-    <Compile Include="Tests\GoogleLogTest.cs" />
-    <Compile Include="Tests\GridTest.cs" />
-    <Compile Include="Tests\Presentation.cs" />
-    <Compile Include="Tests\TemplatePageObjectTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -119,7 +102,10 @@
     <None Include="Resources\XPathCheatSheet.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Tests\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Drivers\chromedriver.exe" />
     <Content Include="Drivers\IEDriverServer.exe" />
